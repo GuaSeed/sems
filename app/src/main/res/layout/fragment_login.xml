@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <!--        <com.google.android.cameraview.CameraView-->
+        <!--                android:id="@+id/fragment_login_camera"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:adjustViewBounds="true"-->
+        <!--                android:background="@android:color/black"/>-->
+
+        <SurfaceView
+                android:id="@+id/fragment_login_surface_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/fragment_login_barcode"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/fragment_login_rerecognition"
+                    android:text="@string/rerecognition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/fragment_login_relative"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_login_phone_number"
+                    android:ems="10"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_login_password"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/fragment_login_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/fragment_login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/fragment_login_password"
+                    android:text="@string/login_in"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

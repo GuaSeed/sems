@@ -1,0 +1,4 @@
+#ifndef CODE_128_CONSTANT_H
+#define CODE_128_CONSTANT_H
+
+#endif

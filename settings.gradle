@@ -1,0 +1,2 @@
+include ':app', 'camera_library'
+rootProject.name = "iFace"
