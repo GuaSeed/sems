@@ -119,7 +119,7 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        initOpenCV(rootView);
+//        initOpenCV(rootView);
         initViews(rootView);
         return rootView;
     }
@@ -222,7 +222,7 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
     @Override
     public void onResume() {
         super.onResume();
-        startOpenCV();
+//        startOpenCV();
     }
 
     private void startOpenCV() {
@@ -243,7 +243,7 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
     @Override
     public void onPause() {
         super.onPause();
-        stopCamera();
+//        stopCamera();
     }
 
     private void stopCamera() {

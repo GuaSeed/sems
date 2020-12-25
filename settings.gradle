@@ -1,2 +1,2 @@
-include ':app', 'camera_library'
-rootProject.name = "iFace"
+include ':app'
+rootProject.name = "sems"

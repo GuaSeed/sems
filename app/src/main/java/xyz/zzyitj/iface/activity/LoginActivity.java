@@ -17,6 +17,8 @@ import xyz.zzyitj.iface.fragment.LoginFragment;
 import xyz.zzyitj.iface.fragment.RegisterFragment;
 import xyz.zzyitj.iface.model.ApiUserDto;
 
+import java.util.Objects;
+
 /**
  * xyz.zzyitj.iface.activity
  *
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         init();
         initViews();
         initToken();

@@ -56,7 +56,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private View rootView;
 
-    private CircleImageView headImageView;
     private AppCompatEditText phoneNumberEditText;
     private AppCompatEditText emailEditText;
     private AppCompatEditText userNameEditText;
@@ -97,9 +96,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        if (tempBitmap != null) {
-            headImageView.setImageBitmap(tempBitmap);
-        }
         clearViewsData();
     }
 
@@ -112,7 +108,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initViews(View rootView) {
-        headImageView = rootView.findViewById(R.id.fragment_register_head);
         phoneNumberEditText = rootView.findViewById(R.id.fragment_register_phone_number);
         emailEditText = rootView.findViewById(R.id.fragment_register_email);
         userNameEditText = rootView.findViewById(R.id.fragment_register_user_name);
@@ -120,7 +115,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         genderSpinner = rootView.findViewById(R.id.fragment_register_gender);
         passwordEditText = rootView.findViewById(R.id.fragment_register_password);
         registerButton = rootView.findViewById(R.id.fragment_register_button);
-        headImageView.setOnClickListener(this);
         registerButton.setOnClickListener(this);
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -138,9 +132,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_register_head:
-                startCamera();
-                break;
             case R.id.fragment_register_button:
                 if (!isRegistering) {
                     registerUser();
@@ -288,7 +279,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             tempBitmap = imageBitmap;
-            headImageView.setImageBitmap(imageBitmap);
         }
     }
 
