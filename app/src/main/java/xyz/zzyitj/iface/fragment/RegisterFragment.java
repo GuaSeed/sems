@@ -16,9 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.*;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -56,13 +54,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private View rootView;
 
-    private AppCompatEditText phoneNumberEditText;
+    private AppCompatButton backButton;
     private AppCompatEditText emailEditText;
     private AppCompatEditText userNameEditText;
-    private AppCompatEditText ageEditText;
-    private AppCompatSpinner genderSpinner;
     private AppCompatEditText passwordEditText;
     private AppCompatButton registerButton;
+    private AppCompatCheckBox clauseCheckBox;
 
     private final Activity activity;
 
@@ -100,38 +97,28 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void clearViewsData() {
-        Objects.requireNonNull(phoneNumberEditText.getText()).clear();
         Objects.requireNonNull(emailEditText.getText()).clear();
         Objects.requireNonNull(userNameEditText.getText()).clear();
-        Objects.requireNonNull(ageEditText.getText()).clear();
         Objects.requireNonNull(passwordEditText.getText()).clear();
     }
 
     private void initViews(View rootView) {
-        phoneNumberEditText = rootView.findViewById(R.id.fragment_register_phone_number);
+        backButton = rootView.findViewById(R.id.fragment_register_back);
         emailEditText = rootView.findViewById(R.id.fragment_register_email);
         userNameEditText = rootView.findViewById(R.id.fragment_register_user_name);
-        ageEditText = rootView.findViewById(R.id.fragment_register_age);
-        genderSpinner = rootView.findViewById(R.id.fragment_register_gender);
         passwordEditText = rootView.findViewById(R.id.fragment_register_password);
         registerButton = rootView.findViewById(R.id.fragment_register_button);
+        clauseCheckBox = rootView.findViewById(R.id.fragment_register_clause);
+        backButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
-        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                gender = position == 0;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.fragment_register_back:
+
+                break;
             case R.id.fragment_register_button:
                 if (!isRegistering) {
                     registerUser();
@@ -151,17 +138,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             baiduFaceUserAddVo.setGroupId(BaiduApiConst.DEFAULT_GROUP);
             // api user vo
             ApiUserVo apiUserVo = new ApiUserVo();
-            // phone number edittext
-            if (TextUtils.isEmpty(phoneNumberEditText.getText())) {
-                phoneNumberEditText.setError(getString(R.string.phone_number_cannot_empty));
-                return;
-            } else if (!RegexUtils.isMobileExact(phoneNumberEditText.getText())) {
-                phoneNumberEditText.setError(getString(R.string.phone_number_format_error));
-                return;
-            } else {
-                baiduFaceUserAddVo.setUid(phoneNumberEditText.getText().toString());
-                apiUserVo.setPhoneNumber(phoneNumberEditText.getText().toString());
-            }
             // email edittext
             if (TextUtils.isEmpty(emailEditText.getText())) {
                 emailEditText.setError(getString(R.string.email_cannot_empty));
@@ -178,19 +154,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 return;
             } else {
                 apiUserVo.setUsername(userNameEditText.getText().toString());
-            }
-            // age edittext
-            if (TextUtils.isEmpty(ageEditText.getText())) {
-                ageEditText.setError(getString(R.string.age_cannot_empty));
-                return;
-            } else {
-                int age = Integer.parseInt(Objects.requireNonNull(ageEditText.getText()).toString());
-                if (age > 140 || age < 1) {
-                    ageEditText.setError(getString(R.string.age_format_error));
-                    return;
-                } else {
-                    apiUserVo.setAge(age);
-                }
             }
             // password edittext
             if (TextUtils.isEmpty(passwordEditText.getText())) {

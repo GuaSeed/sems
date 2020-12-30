@@ -3,7 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -11,6 +12,7 @@
             tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_register_back"
                 android:layout_centerVertical="true"
                 android:background="@drawable/return_top"
                 android:layout_width="12dp"
@@ -41,56 +43,160 @@
             android:layout_height="match_parent"
             tools:ignore="MissingConstraints">
 
-        <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/fragment_register_user_name"
-                android:ems="15"
-                android:hint="@string/user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/fragment_register_phone_number"
-                android:ems="15"
-                android:hint="@string/phone_number"
-                android:inputType="phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/fragment_register_email"
-                android:ems="10"
-                android:hint="@string/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
         <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_layout_height"
+                android:gravity="center"
+                android:background="@drawable/input_background"
+                android:layout_marginTop="@dimen/input_layout_margin_top"
+                android:layout_marginBottom="@dimen/input_layout_margin_bottom"
+                android:layout_marginStart="@dimen/input_layout_margin_left"
+                android:layout_marginEnd="@dimen/input_layout_margin_right">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/input_icon_width"
+                    android:layout_height="@dimen/input_icon_height"
+                    android:src="@drawable/user_icon"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:layout_marginEnd="@dimen/input_icon_margin_right"/>
 
             <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/fragment_register_age"
-                    android:ems="3"
-                    android:inputType="number"
-                    android:hint="@string/age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/fragment_register_gender"
+                    android:id="@+id/fragment_register_user_name"
+                    android:ems="15"
+                    android:hint="@string/input_user_name_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/spinner_gender"/>
+                    android:layout_marginStart="@dimen/input_edit_margin_left"
+                    android:layout_marginEnd="@dimen/input_edit_margin_right"
+                    android:theme="@style/EditTextStyle"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"/>
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/fragment_register_password"
-                android:ems="10"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_layout_height"
+                android:gravity="center"
+                android:background="@drawable/input_background"
+                android:layout_marginTop="@dimen/input_layout_margin_top"
+                android:layout_marginBottom="@dimen/input_layout_margin_bottom"
+                android:layout_marginStart="@dimen/input_layout_margin_left"
+                android:layout_marginEnd="@dimen/input_layout_margin_right">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/input_icon_width"
+                    android:layout_height="@dimen/input_icon_height"
+                    android:src="@drawable/email_icon"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:layout_marginEnd="@dimen/input_icon_margin_right"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_register_email"
+                    android:ems="15"
+                    android:hint="@string/input_email_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_edit_margin_left"
+                    android:layout_marginEnd="@dimen/input_edit_margin_right"
+                    android:theme="@style/EditTextStyle"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_layout_height"
+                android:gravity="center"
+                android:background="@drawable/input_background"
+                android:layout_marginTop="@dimen/input_layout_margin_top"
+                android:layout_marginBottom="@dimen/input_layout_margin_bottom"
+                android:layout_marginStart="@dimen/input_layout_margin_left"
+                android:layout_marginEnd="@dimen/input_layout_margin_right">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/input_icon_width"
+                    android:layout_height="@dimen/input_icon_height"
+                    android:src="@drawable/passwd_icon"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:layout_marginEnd="@dimen/input_icon_margin_right"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_register_password"
+                    android:ems="15"
+                    android:hint="@string/input_password_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_edit_margin_left"
+                    android:layout_marginEnd="@dimen/input_edit_margin_right"
+                    android:theme="@style/EditTextStyle"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_layout_height"
+                android:gravity="center"
+                android:background="@drawable/input_background"
+                android:layout_marginTop="@dimen/input_layout_margin_top"
+                android:layout_marginBottom="@dimen/input_layout_margin_bottom"
+                android:layout_marginStart="@dimen/input_layout_margin_left"
+                android:layout_marginEnd="@dimen/input_layout_margin_right">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/input_icon_width"
+                    android:layout_height="@dimen/input_icon_height"
+                    android:src="@drawable/passwd_icon"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:layout_marginEnd="@dimen/input_icon_margin_right"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_register_reply_password"
+                    android:ems="15"
+                    android:hint="@string/input_reply_password_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_edit_margin_left"
+                    android:layout_marginEnd="@dimen/input_edit_margin_right"
+                    android:theme="@style/EditTextStyle"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/input_layout_margin_top"
+                android:layout_marginBottom="@dimen/input_layout_margin_bottom"
+                android:layout_marginStart="@dimen/input_layout_margin_left"
+                android:layout_marginEnd="@dimen/input_layout_margin_right">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/fragment_register_clause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:button="@drawable/check_box_background"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:text="同意我们的"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="服务条款？"
+                    android:textColor="@color/colorPrimary"/>
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fragment_register_button"
@@ -101,6 +207,25 @@
                 android:textStyle="bold"
                 android:background="@drawable/button_login"
                 android:text="@string/register"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:text="已有帐号？"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登陆"
+                    android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
 
     </LinearLayout>
 

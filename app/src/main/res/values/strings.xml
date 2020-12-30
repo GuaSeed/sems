@@ -45,4 +45,8 @@
     <string name="late">Late</string>
     <string name="leave_early">Leave early</string>
     <string name="rerecognition">Rerecognition</string>
+    <string name="input_user_name_hint">Please input your username.</string>
+    <string name="input_email_hint">Please input your email.</string>
+    <string name="input_password_hint">Please input your password.</string>
+    <string name="input_reply_password_hint">Please reinput your passward.</string>
 </resources>
