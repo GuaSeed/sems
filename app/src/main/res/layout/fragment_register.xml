@@ -188,12 +188,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/input_icon_margin_left"
-                    android:text="同意我们的"/>
+                    android:text="@string/agree_we"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="服务条款？"
+                    android:text="@string/clause"
                     android:textColor="@color/colorPrimary"/>
 
         </LinearLayout>
@@ -218,12 +218,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/input_icon_margin_left"
-                    android:text="已有帐号？"/>
+                    android:text="@string/have_account"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="登陆"
+                    android:text="@string/login_in"
                     android:textColor="@color/colorPrimary"/>
         </LinearLayout>
 

@@ -50,4 +50,7 @@
     <string name="input_email_hint">请输入注册邮箱</string>
     <string name="input_password_hint">请输入您的密码</string>
     <string name="input_reply_password_hint">请再次确认密码</string>
+    <string name="agree_we">同意我们的</string>
+    <string name="clause">服务条款？</string>
+    <string name="have_account">已有帐号？</string>
 </resources>

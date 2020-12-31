@@ -117,7 +117,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_register_back:
-
+                LoginActivity loginActivity = (LoginActivity) activity;
+                loginActivity.setCurrentFragment(loginActivity.loginFragment);
+                loginActivity.setBottomTab(LoginActivity.LOGIN_FRAGMENT);
                 break;
             case R.id.fragment_register_button:
                 if (!isRegistering) {

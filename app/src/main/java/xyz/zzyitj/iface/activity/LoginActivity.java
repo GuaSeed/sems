@@ -3,13 +3,17 @@ package xyz.zzyitj.iface.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
 import xyz.zzyitj.iface.IFaceApplication;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.api.BaiduAuthService;
@@ -31,10 +35,11 @@ public class LoginActivity extends AppCompatActivity {
     public static final int LOGIN_FRAGMENT = 0;
     public static final int REGISTER_FRAGMENT = 1;
 
-    private BottomBar bottomBar;
+    public BottomBar bottomBar;
 
-    private LoginFragment loginFragment;
-    private RegisterFragment registerFragment;
+    private Fragment currentFragment;
+    public LoginFragment loginFragment;
+    public RegisterFragment registerFragment;
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -43,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         init();
         initViews();
-        initToken();
+        //initToken();
     }
 
     private void init() {
@@ -57,45 +62,35 @@ public class LoginActivity extends AppCompatActivity {
     private void initViews() {
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment(this);
-        if (!loginFragment.isAdded()) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.login_content, loginFragment)
-                    .commit();
-        }
         bottomBar = findViewById(R.id.login_bottom_bar);
+        for (int i = 0; i < bottomBar.getTabCount(); i++) {
+            BottomBarTab tab = bottomBar.getTabAtPosition(i);
+            tab.setGravity(Gravity.CENTER);
+        }
         bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
                 case R.id.tab_login:
-                    changeFragment(LOGIN_FRAGMENT);
+                    setCurrentFragment(loginFragment);
                     break;
                 case R.id.tab_register:
-                    changeFragment(REGISTER_FRAGMENT);
+                    setCurrentFragment(registerFragment);
                     break;
                 default:
             }
         });
     }
 
-    public void changeFragment(int fragmentId) {
-        switch (fragmentId) {
-            case LOGIN_FRAGMENT:
-                if (registerFragment.isAdded()) {
-                    getSupportFragmentManager().beginTransaction()
-                            .remove(registerFragment)
-                            .add(R.id.login_content, loginFragment)
-                            .commit();
-                }
-                break;
-            case REGISTER_FRAGMENT:
-                if (loginFragment.isAdded()) {
-                    getSupportFragmentManager().beginTransaction()
-                            .remove(loginFragment)
-                            .add(R.id.login_content, registerFragment)
-                            .commit();
-                }
-                break;
-            default:
+    public void setBottomTab(int pos) {
+        bottomBar.selectTabAtPosition(pos, true);
+    }
+
+    public void setCurrentFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (currentFragment != null) {
+            fragmentTransaction.remove(currentFragment);
         }
+        currentFragment = fragment;
+        fragmentTransaction.add(R.id.login_content, currentFragment).commit();
     }
 
     /**
@@ -132,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_switch_login_mode:
-                if (loginFragment.isAdded()){
+                if (loginFragment.isAdded()) {
                     loginFragment.swapLoginMode();
                 }
                 break;
