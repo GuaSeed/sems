@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iFace</string>
+    <string name="app_name">Samrt express manager system</string>
     <string name="input">Input</string>
     <string name="camera_permission_not_granted">Camera app cannot do anything without camera permission.</string>
     <string name="clock">Clock</string>
@@ -52,4 +52,6 @@
     <string name="agree_we">"Agree the "</string>
     <string name="clause">clause?</string>
     <string name="have_account">Have account?</string>
+    <string name="forget_password">Forget password</string>
+    <string name="info">Info</string>
 </resources>

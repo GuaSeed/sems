@@ -8,73 +8,189 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <!--        <com.google.android.cameraview.CameraView-->
-        <!--                android:id="@+id/fragment_login_camera"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:adjustViewBounds="true"-->
-        <!--                android:background="@android:color/black"/>-->
-
-        <SurfaceView
-                android:id="@+id/fragment_login_surface_view"
+        <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="302dp"
+                android:background="@drawable/background_user_top"
+                android:layout_alignParentTop="true"/>
 
         <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:id="@+id/fragment_login_barcode"
-                    android:textColor="@android:color/white"
-                    android:textSize="30sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fragment_login_rerecognition"
-                    android:text="@string/rerecognition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/fragment_login_relative"
+                android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/fragment_login_relative"
+                android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:textSize="30sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@drawable/bottom"
+                android:layout_alignParentBottom="true"/>
+
+        <RelativeLayout
+                android:id="@+id/fragment_login_relative"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/fragment_login_phone_number"
-                    android:ems="10"
-                    android:hint="@string/phone_number"
-                    android:inputType="phone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:src="@drawable/background_user"/>
 
-            <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/fragment_login_password"
-                    android:ems="10"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/fragment_login_phone_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <LinearLayout
+                    android:id="@+id/fragment_login_account_linear"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_layout_height"
+                    android:gravity="center"
+                    android:background="@drawable/input_background"
+                    android:layout_marginTop="@dimen/login_layout_margin_top"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/input_icon_width"
+                        android:layout_height="@dimen/input_icon_height"
+                        android:src="@drawable/user_icon"
+                        android:layout_marginStart="@dimen/input_icon_margin_left"
+                        android:layout_marginEnd="@dimen/input_icon_margin_right"/>
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/fragment_login_account"
+                        android:ems="15"
+                        android:hint="@string/input_user_name_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/input_edit_margin_left"
+                        android:layout_marginEnd="@dimen/input_edit_margin_right"
+                        android:theme="@style/EditTextStyle"
+                        android:textCursorDrawable="@drawable/edit_cursor_color"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/fragment_login_password_linear"
+                    android:layout_below="@id/fragment_login_account_linear"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_layout_height"
+                    android:gravity="center"
+                    android:background="@drawable/input_background"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/input_icon_width"
+                        android:layout_height="@dimen/input_icon_height"
+                        android:src="@drawable/passwd_icon"
+                        android:layout_marginStart="@dimen/input_icon_margin_left"
+                        android:layout_marginEnd="@dimen/input_icon_margin_right"/>
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/fragment_login_password"
+                        android:ems="15"
+                        android:hint="@string/input_password_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/input_edit_margin_left"
+                        android:layout_marginEnd="@dimen/input_edit_margin_right"
+                        android:theme="@style/EditTextStyle"
+                        android:inputType="textPassword"
+                        android:textCursorDrawable="@drawable/edit_cursor_color"/>
+
+            </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/fragment_login_button"
+                    android:layout_width="281dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/button_login"
+                    android:layout_below="@+id/fragment_login_password_linear"
+                    android:text="@string/login_in"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/fragment_login_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/fragment_login_password"
-                    android:text="@string/login_in"/>
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp"
+                    android:background="@android:color/transparent"
+                    android:layout_below="@+id/fragment_login_button"
+                    android:text="@string/register"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/fragment_login_forget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@android:color/transparent"
+                    android:layout_below="@+id/fragment_login_button"
+                    android:text="@string/forget_password"/>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="@dimen/input_layout_margin_bottom"
+                    android:layout_marginStart="@dimen/input_layout_margin_left"
+                    android:layout_marginEnd="@dimen/input_layout_margin_right"
+                    android:layout_below="@id/fragment_login_register">
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/fragment_login_clause"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/input_icon_margin_left"
+                        android:button="@drawable/check_box_background"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/input_icon_margin_left"
+                        android:text="@string/agree_we"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/clause"
+                        android:textColor="@color/colorPrimary"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

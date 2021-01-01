@@ -55,8 +55,6 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
     private View rootView;
 
     private RelativeLayout relativeLayout;
-    private TextView barcodeTextView;
-    private AppCompatButton recognitionButton;
 
     private AppCompatEditText phoneNumberEditText;
     private AppCompatEditText passwordEditText;
@@ -67,7 +65,7 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
     private OpencvJni openCvJni;
     private CameraHelper cameraHelper;
     private int cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
-    private SurfaceView surfaceView;
+//    private SurfaceView surfaceView;
     private boolean isLogin = false;
 
     private void login(byte[] data) {
@@ -126,8 +124,8 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
 
     private void initOpenCV(View rootView) {
         openCvJni = new OpencvJni();
-        surfaceView = rootView.findViewById(R.id.fragment_login_surface_view);
-        surfaceView.getHolder().addCallback(this);
+//        surfaceView = rootView.findViewById(R.id.fragment_login_surface_view);
+//        surfaceView.getHolder().addCallback(this);
         cameraHelper = new CameraHelper(cameraId);
         cameraHelper.setPreviewCallback(this);
 //        Utils.copyAssets(getActivity(), "lbpcascade_frontalface.xml");
@@ -135,36 +133,15 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
     }
 
     private void initViews(View rootView) {
-        barcodeTextView = rootView.findViewById(R.id.fragment_login_barcode);
-        recognitionButton = rootView.findViewById(R.id.fragment_login_rerecognition);
-        recognitionButton.setVisibility(View.GONE);
+//        barcodeTextView = rootView.findViewById(R.id.fragment_login_barcode);
+//        recognitionButton = rootView.findViewById(R.id.fragment_login_rerecognition);
         progressDialog = new ProgressDialog(getActivity(), getString(R.string.logging));
         relativeLayout = rootView.findViewById(R.id.fragment_login_relative);
-        phoneNumberEditText = rootView.findViewById(R.id.fragment_login_phone_number);
+//        phoneNumberEditText = rootView.findViewById(R.id.fragment_login_phone_number);
         passwordEditText = rootView.findViewById(R.id.fragment_login_password);
         loginButton = rootView.findViewById(R.id.fragment_login_button);
         loginButton.setOnClickListener(v -> {
-            if (relativeLayout.getVisibility() == View.VISIBLE) {
-                userLogin();
-            }
         });
-        recognitionButton.setOnClickListener((v) -> {
-            barcodeTextView.setText("");
-            recognitionButton.setVisibility(View.GONE);
-            startOpenCV();
-        });
-    }
-
-    public void swapLoginMode() {
-        if (relativeLayout.getVisibility() == View.VISIBLE) {
-            startOpenCV();
-            relativeLayout.setVisibility(View.GONE);
-            surfaceView.setVisibility(View.VISIBLE);
-        } else {
-            stopCamera();
-            surfaceView.setVisibility(View.GONE);
-            relativeLayout.setVisibility(View.VISIBLE);
-        }
     }
 
     private void userLogin() {
@@ -271,19 +248,21 @@ public class LoginFragment extends Fragment implements SurfaceHolder.Callback, C
 
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
-        Rect rect = openCvJni.haveBarcode(data, CameraHelper.WIDTH, CameraHelper.HEIGHT);
-        if (rect.getWidth() * rect.getHeight() > 0) {
-            byte[] jpegData = CameraUtils.runInPreviewFrame(data, camera);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length);
-            String barcode = openCvJni.recognitionBarcode(bitmap,
-                    rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-            barcodeTextView.setText(barcode);
-            if (!barcode.isEmpty()) {
-                Log.d(TAG, barcode);
-                stopCamera();
-                recognitionButton.setVisibility(View.VISIBLE);
-            }
-        }
+//        Rect rect = openCvJni.haveBarcode(data, CameraHelper.WIDTH, CameraHelper.HEIGHT);
+//        if (rect.getWidth() * rect.getHeight() > 0) {
+//            byte[] jpegData = CameraUtils.runInPreviewFrame(data, camera);
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length);
+//            String barcode = openCvJni.recognitionBarcode(bitmap,
+//                    rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+//            barcodeTextView.setText(barcode);
+//            if (!barcode.isEmpty()) {
+//                Log.d(TAG, barcode);
+//                stopCamera();
+//                recognitionButton.setVisibility(View.VISIBLE);
+//            }
+//        }
+
+
 //        if (haveFace && !isLogin) {
 //            isLogin = true;
 //            byte[] faceData = CameraUtils.runInPreviewFrame(data, camera);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">iFace</string>
+    <string name="app_name">智能快递管理系统</string>
     <string name="input">录入</string>
     <string name="camera_permission_not_granted">app没有授予相机权限！无法启动</string>
     <string name="clock">打卡</string>
@@ -53,4 +53,6 @@
     <string name="agree_we">同意我们的</string>
     <string name="clause">服务条款？</string>
     <string name="have_account">已有帐号？</string>
+    <string name="forget_password">忘记密码？</string>
+    <string name="info">计算机与软件工程学院2017级毕业设计\n何东洋&amp;周智勇</string>
 </resources>

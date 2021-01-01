@@ -114,25 +114,4 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, IFaceApplication.instance.getApiToken());
         }
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_switch_login_mode:
-                if (loginFragment.isAdded()) {
-                    loginFragment.swapLoginMode();
-                }
-                break;
-            default:
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
