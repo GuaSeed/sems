@@ -5,23 +5,9 @@
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <FrameLayout
+            android:id="@+id/login_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <FrameLayout
-                android:id="@+id/login_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/login_bottom_bar"/>
-
-        <com.roughike.bottombar.BottomBar
-                android:id="@+id/login_bottom_bar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                app:bb_tabXmlResource="@xml/tabs_login"/>
-
-    </RelativeLayout>
+            android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.roughike.bottombar.BottomBar;
@@ -32,10 +33,6 @@ import java.util.Objects;
  */
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
-    public static final int LOGIN_FRAGMENT = 0;
-    public static final int REGISTER_FRAGMENT = 1;
-
-    public BottomBar bottomBar;
 
     private Fragment currentFragment;
     public LoginFragment loginFragment;
@@ -62,26 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initViews() {
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment(this);
-        bottomBar = findViewById(R.id.login_bottom_bar);
-        for (int i = 0; i < bottomBar.getTabCount(); i++) {
-            BottomBarTab tab = bottomBar.getTabAtPosition(i);
-            tab.setGravity(Gravity.CENTER);
-        }
-        bottomBar.setOnTabSelectListener(tabId -> {
-            switch (tabId) {
-                case R.id.tab_login:
-                    setCurrentFragment(loginFragment);
-                    break;
-                case R.id.tab_register:
-                    setCurrentFragment(registerFragment);
-                    break;
-                default:
-            }
-        });
-    }
-
-    public void setBottomTab(int pos) {
-        bottomBar.selectTabAtPosition(pos, true);
+        setCurrentFragment(loginFragment);
     }
 
     public void setCurrentFragment(Fragment fragment) {

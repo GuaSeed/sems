@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,16 +50,15 @@ import static android.app.Activity.RESULT_OK;
  */
 public class RegisterFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = RegisterFragment.class.getSimpleName();
-    private static final int REQUEST_CAMERA_PERMISSION = 1;
-    private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     private View rootView;
 
-    private AppCompatButton backButton;
+    private LinearLayout backLienarLayout;
     private AppCompatEditText emailEditText;
     private AppCompatEditText userNameEditText;
     private AppCompatEditText passwordEditText;
     private AppCompatButton registerButton;
+    private AppCompatTextView loginTextView;
     private AppCompatCheckBox clauseCheckBox;
 
     private final Activity activity;
@@ -103,23 +103,25 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initViews(View rootView) {
-        backButton = rootView.findViewById(R.id.fragment_register_back);
+        backLienarLayout = rootView.findViewById(R.id.fragment_register_back);
         emailEditText = rootView.findViewById(R.id.fragment_register_email);
         userNameEditText = rootView.findViewById(R.id.fragment_register_user_name);
         passwordEditText = rootView.findViewById(R.id.fragment_register_password);
         registerButton = rootView.findViewById(R.id.fragment_register_button);
+        loginTextView = rootView.findViewById(R.id.fragment_register_login);
         clauseCheckBox = rootView.findViewById(R.id.fragment_register_clause);
-        backButton.setOnClickListener(this);
+        backLienarLayout.setOnClickListener(this);
         registerButton.setOnClickListener(this);
+        loginTextView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        LoginActivity loginActivity = getLoginActivity();
         switch (v.getId()) {
             case R.id.fragment_register_back:
-                LoginActivity loginActivity = (LoginActivity) activity;
+            case R.id.fragment_register_login:
                 loginActivity.setCurrentFragment(loginActivity.loginFragment);
-                loginActivity.setBottomTab(LoginActivity.LOGIN_FRAGMENT);
                 break;
             case R.id.fragment_register_button:
                 if (!isRegistering) {
@@ -215,52 +217,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void startCamera() {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
-            dispatchTakePictureIntent();
-        } else if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                Manifest.permission.CAMERA)) {
-            Toast.makeText(activity, R.string.camera_permission_not_granted, Toast.LENGTH_LONG).show();
-        } else {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},
-                    REQUEST_CAMERA_PERMISSION);
-        }
-    }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 @Nullable Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            assert data != null;
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            tempBitmap = imageBitmap;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions,
-                                           @NonNull @NotNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CAMERA_PERMISSION:
-                if (permissions.length != 1 || grantResults.length != 1) {
-                    throw new RuntimeException("Error on requesting camera permission.");
-                }
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(activity, R.string.camera_permission_not_granted,
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-        }
+    private LoginActivity getLoginActivity() {
+        return (LoginActivity) this.getActivity();
     }
 }
+
