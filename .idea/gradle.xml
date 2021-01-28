@@ -14,6 +14,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/intent-rpc-client" />
+            <option value="$PROJECT_DIR$/intent-rpc-common" />
           </set>
         </option>
       </GradleProjectSettings>

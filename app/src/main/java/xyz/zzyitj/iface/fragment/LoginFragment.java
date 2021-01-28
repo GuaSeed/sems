@@ -1,5 +1,6 @@
 package xyz.zzyitj.iface.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,10 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
-import org.jetbrains.annotations.NotNull;
+import cool.zzy.rpc.client.RpcClient;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.activity.LoginActivity;
+import xyz.zzyitj.iface.constant.Const;
 import xyz.zzyitj.iface.ui.ProgressDialog;
 
 /**
@@ -38,16 +40,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private boolean isLogin = false;
 
-    private void login(byte[] data) {
-        progressDialog.show();
+    private void login() {
+//        progressDialog.show();
+        @SuppressLint("DefaultLocale") RpcClient rpcClient = new RpcClient(String.format("%s:%d", Const.RPC_IP, Const.RPC_PORT));
     }
 
     @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
-                             @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                             @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
         initViews(rootView);
         return rootView;
@@ -73,6 +75,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_login_button:
+                login();
                 Toast.makeText(getLoginActivity(), "还没写！！！", Toast.LENGTH_LONG).show();
                 break;
             case R.id.fragment_login_register:

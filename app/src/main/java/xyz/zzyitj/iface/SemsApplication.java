@@ -11,16 +11,16 @@ import android.util.Log;
  * @date 2020/9/8 14:51
  * @since 1.0
  */
-public class IFaceApplication extends Application {
-    private static final String TAG = IFaceApplication.class.getSimpleName();
-    public static IFaceApplication instance;
+public class SemsApplication extends Application {
+    private static final String TAG = SemsApplication.class.getSimpleName();
+    public static SemsApplication instance;
 
     /**
      * access_token的有效期为30天，切记需要每30天进行定期更换，或者每次请求都拉取新token
      */
     private String apiToken;
 
-    public IFaceApplication() {
+    public SemsApplication() {
         instance = this;
     }
 

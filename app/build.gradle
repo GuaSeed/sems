@@ -55,15 +55,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    // okhttp
-    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.8.1'
-    // rx
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
-    // json
-    implementation 'com.google.code.gson:gson:2.8.6'
-    // camera
-//    implementation project(':camera_library')
+    implementation project(':intent-rpc-client')
     // bottombar
     implementation 'com.roughike:bottom-bar:2.3.1'
     // commons

@@ -1,2 +1,5 @@
+include ':intent-rpc-common'
 include ':app'
 rootProject.name = "sems"
+include 'intent-rpc-client'
+
