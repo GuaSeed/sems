@@ -1,12 +1,10 @@
 package xyz.zzyitj.iface.fragment;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.*;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -14,22 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import io.reactivex.disposables.Disposable;
-import org.apache.commons.codec.binary.Base64;
 import org.jetbrains.annotations.NotNull;
-import xyz.zzyitj.iface.IFaceApplication;
 import xyz.zzyitj.iface.OpencvJni;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.activity.MainActivity;
-import xyz.zzyitj.iface.api.ApiClockService;
-import xyz.zzyitj.iface.api.BaiduApiConst;
-import xyz.zzyitj.iface.api.BaiduFaceService;
-import xyz.zzyitj.iface.model.BaiduFaceSearchVo;
-import xyz.zzyitj.iface.model.BaiduFaceSearchDto;
 import xyz.zzyitj.iface.ui.ProgressDialog;
 import xyz.zzyitj.iface.util.CameraHelper;
-import xyz.zzyitj.iface.util.CameraUtils;
-import xyz.zzyitj.iface.util.DateUtils;
 import xyz.zzyitj.iface.util.Utils;
 
 import java.io.File;
@@ -58,69 +46,6 @@ public class ClockFragment extends Fragment implements SurfaceHolder.Callback, C
     private ProgressDialog progressDialog;
 
     private boolean isClock;
-
-    private void clock(byte[] data) {
-        progressDialog.show();
-        BaiduFaceSearchVo searchDo = new BaiduFaceSearchVo();
-        searchDo.setImageType(BaiduApiConst.IMAGE_TYPE_BASE_64);
-        searchDo.setImage(Base64.encodeBase64String(data));
-        searchDo.setGroupIdList(BaiduApiConst.DEFAULT_GROUP);
-        @SuppressLint("CheckResult") Disposable disposable = BaiduFaceService.searchUser(IFaceApplication.instance.getApiToken(), searchDo)
-                .subscribe(body -> {
-                    Log.d(TAG, body.toString());
-                    if (body.getErrorCode() == 0) {
-                        BaiduFaceSearchDto.User user = body.getResult().getUserList().get(0);
-                        if (user.getScore() > BaiduApiConst.SAME_USER_MIN_SCORE) {
-                            ApiClockService.addClock(user.getUserId())
-                                    .subscribe(apiClockDto -> {
-                                        Log.d(TAG, "onPictureTaken: " + apiClockDto.toString());
-                                        progressDialog.dismiss();
-                                        isClock = false;
-                                        startOpenCV();
-                                        switch (apiClockDto.getStatus()) {
-                                            case 1:
-                                                Toast.makeText(getActivity(),
-                                                        apiClockDto.getUsername() + getString(R.string.clock_success),
-                                                        Toast.LENGTH_LONG).show();
-                                                break;
-                                            case 2:
-                                                Toast.makeText(getActivity(),
-                                                        apiClockDto.getUsername() + getString(R.string.clock_success) + "，你已" + getString(R.string.late),
-                                                        Toast.LENGTH_LONG).show();
-                                                break;
-                                            case 3:
-                                                Toast.makeText(getActivity(),
-                                                        apiClockDto.getUsername() + getString(R.string.clock_success) + "，你已" + getString(R.string.leave_early),
-                                                        Toast.LENGTH_LONG).show();
-                                                break;
-                                            default:
-                                        }
-                                    }, throwable -> {
-                                        Log.e(TAG, "onPictureTaken: ", throwable);
-                                        progressDialog.dismiss();
-                                        isClock = false;
-                                        startOpenCV();
-                                        Toast.makeText(getActivity(), R.string.clock_error, Toast.LENGTH_LONG).show();
-                                    });
-                        } else {
-                            progressDialog.dismiss();
-                            isClock = false;
-                            startOpenCV();
-                            Toast.makeText(getActivity(), R.string.no_same_face_with_library, Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        progressDialog.dismiss();
-                        isClock = false;
-                        startOpenCV();
-                        Toast.makeText(getActivity(), body.getErrorMsg(), Toast.LENGTH_LONG).show();
-                    }
-                }, throwable -> {
-                    Log.e(TAG, "onPictureTaken: ", throwable);
-                    progressDialog.dismiss();
-                    isClock = false;
-                    startOpenCV();
-                });
-    }
 
     public ClockFragment(MainActivity mainActivity) {
         this.mainActivity = mainActivity;

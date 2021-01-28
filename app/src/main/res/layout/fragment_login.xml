@@ -185,6 +185,7 @@
                         android:text="@string/agree_we"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/fragment_login_clause_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/clause"

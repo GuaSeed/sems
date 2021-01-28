@@ -1,45 +1,24 @@
 package xyz.zzyitj.iface.fragment;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.*;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
-import org.apache.commons.codec.binary.Base64;
 import org.jetbrains.annotations.NotNull;
-import xyz.zzyitj.iface.IFaceApplication;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.activity.LoginActivity;
-import xyz.zzyitj.iface.activity.MainActivity;
-import xyz.zzyitj.iface.api.ApiUserService;
-import xyz.zzyitj.iface.api.BaiduApiConst;
-import xyz.zzyitj.iface.api.BaiduFaceService;
-import xyz.zzyitj.iface.model.ApiUserVo;
-import xyz.zzyitj.iface.model.BaiduFaceUserAddVo;
-import xyz.zzyitj.iface.ui.CircleImageView;
-import xyz.zzyitj.iface.ui.ProgressDialog;
-import xyz.zzyitj.iface.util.RegexUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Objects;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * xyz.zzyitj.iface.fragment
@@ -125,95 +104,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fragment_register_button:
                 if (!isRegistering) {
-                    registerUser();
+                    // 注册
                 }
                 break;
             default:
-        }
-    }
-
-    private void registerUser() {
-        if (tempBitmap != null) {
-            BaiduFaceUserAddVo baiduFaceUserAddVo = new BaiduFaceUserAddVo();
-            baiduFaceUserAddVo.setImageType(BaiduApiConst.IMAGE_TYPE_BASE_64);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            tempBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            baiduFaceUserAddVo.setImage(Base64.encodeBase64String(baos.toByteArray()));
-            baiduFaceUserAddVo.setGroupId(BaiduApiConst.DEFAULT_GROUP);
-            // api user vo
-            ApiUserVo apiUserVo = new ApiUserVo();
-            // email edittext
-            if (TextUtils.isEmpty(emailEditText.getText())) {
-                emailEditText.setError(getString(R.string.email_cannot_empty));
-                return;
-            } else if (!RegexUtils.isEmail(emailEditText.getText())) {
-                emailEditText.setError(getString(R.string.email_format_error));
-                return;
-            } else {
-                apiUserVo.setEmail(emailEditText.getText().toString());
-            }
-            // user name edittext
-            if (TextUtils.isEmpty(userNameEditText.getText())) {
-                userNameEditText.setError(getString(R.string.user_name_cannot_empty));
-                return;
-            } else {
-                apiUserVo.setUsername(userNameEditText.getText().toString());
-            }
-            // password edittext
-            if (TextUtils.isEmpty(passwordEditText.getText())) {
-                passwordEditText.setError(getString(R.string.password_cannot_empty));
-                return;
-            } else {
-                apiUserVo.setPassword(passwordEditText.getText().toString());
-            }
-            apiUserVo.setGender(gender);
-            apiUserVo.setGroupId(BaiduApiConst.DEFAULT_GROUP);
-            ProgressDialog progressDialog = new ProgressDialog(activity, getString(R.string.registering));
-            progressDialog.show();
-            isRegistering = true;
-            BaiduFaceService.addUser(IFaceApplication.instance.getApiToken(), baiduFaceUserAddVo)
-                    .subscribe(body -> {
-                        Log.d(TAG, apiUserVo.toString());
-                        if (body.getErrorCode() == 0) {
-                            // 百度注册成功
-                            ApiUserService.register(apiUserVo)
-                                    .subscribe(apiUserDto -> {
-                                        progressDialog.dismiss();
-                                        isRegistering = false;
-                                        if (apiUserDto != null && apiUserDto.getRole() != null) {
-                                            Toast.makeText(activity, R.string.register_success, Toast.LENGTH_LONG).show();
-                                            IFaceApplication.instance.setUserDto(apiUserDto);
-                                            if (activity instanceof LoginActivity) {
-                                                IFaceApplication.instance.putUser(apiUserDto);
-                                                // 跳转
-                                                activity.startActivity(new Intent(activity, MainActivity.class));
-                                                activity.finish();
-                                            } else if (activity instanceof MainActivity) {
-                                                MainActivity mainActivity = (MainActivity) (activity);
-                                                mainActivity.changeBottomTab(MainActivity.CLOCK_FRAGMENT);
-                                            }
-                                        } else {
-                                            Toast.makeText(activity, R.string.register_error, Toast.LENGTH_LONG).show();
-                                        }
-                                    }, throwable -> {
-                                        Toast.makeText(activity, R.string.api_register_error, Toast.LENGTH_LONG).show();
-                                        Log.e(TAG, "registerUser: ", throwable);
-                                        progressDialog.dismiss();
-                                        isRegistering = false;
-                                    });
-                        } else {
-                            progressDialog.dismiss();
-                            isRegistering = false;
-                            Toast.makeText(activity, R.string.register_error + body.getErrorMsg(), Toast.LENGTH_LONG).show();
-                        }
-                    }, throwable -> {
-                        Toast.makeText(activity, R.string.register_error, Toast.LENGTH_LONG).show();
-                        Log.e(TAG, getString(R.string.register_error), throwable);
-                        progressDialog.dismiss();
-                        isRegistering = false;
-                    });
-        } else {
-            Toast.makeText(activity, R.string.header_cannot_empty, Toast.LENGTH_LONG).show();
         }
     }
 

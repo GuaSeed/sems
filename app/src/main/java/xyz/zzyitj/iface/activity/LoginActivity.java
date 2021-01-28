@@ -1,26 +1,13 @@
 package xyz.zzyitj.iface.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
-import xyz.zzyitj.iface.IFaceApplication;
 import xyz.zzyitj.iface.R;
-import xyz.zzyitj.iface.api.BaiduAuthService;
 import xyz.zzyitj.iface.fragment.LoginFragment;
 import xyz.zzyitj.iface.fragment.RegisterFragment;
-import xyz.zzyitj.iface.model.ApiUserDto;
 
 import java.util.Objects;
 
@@ -49,11 +36,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        ApiUserDto apiUserDto = IFaceApplication.instance.getUser();
-        if (apiUserDto != null) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
+//        ApiUserDto apiUserDto = IFaceApplication.instance.getUser();
+//        if (apiUserDto != null) {
+//            startActivity(new Intent(this, MainActivity.class));
+//            finish();
+//        }
     }
 
     private void initViews() {
@@ -69,27 +56,5 @@ public class LoginActivity extends AppCompatActivity {
         }
         currentFragment = fragment;
         fragmentTransaction.add(R.id.login_content, currentFragment).commit();
-    }
-
-    /**
-     * 初始化token
-     */
-    private void initToken() {
-        if (IFaceApplication.instance.getApiToken() == null) {
-            BaiduAuthService.getToken()
-                    .subscribe(apiTokenDto -> {
-                        if (apiTokenDto != null && apiTokenDto.getAccessToken() != null) {
-                            IFaceApplication.instance.setApiToken(apiTokenDto);
-                            Log.d(TAG, apiTokenDto.toString());
-                        } else {
-                            Toast.makeText(this, "token cannot be null.", Toast.LENGTH_LONG).show();
-                        }
-                    }, throwable -> {
-                        Log.e(TAG, "getToken error.", throwable);
-                        Toast.makeText(this, "token error.", Toast.LENGTH_LONG).show();
-                    });
-        } else {
-            Log.d(TAG, IFaceApplication.instance.getApiToken());
-        }
     }
 }

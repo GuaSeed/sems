@@ -1,18 +1,15 @@
 package xyz.zzyitj.iface.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.fragment.app.FragmentTransaction;
 import com.roughike.bottombar.BottomBar;
-import xyz.zzyitj.iface.IFaceApplication;
 import xyz.zzyitj.iface.R;
-import xyz.zzyitj.iface.api.ApiConst;
 import xyz.zzyitj.iface.fragment.ClockFragment;
-import xyz.zzyitj.iface.fragment.ClockRecordFragment;
 import xyz.zzyitj.iface.fragment.RegisterFragment;
 
 /**
@@ -25,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int CLOCK_RECORD_FRAGMENT = 2;
 
     private ClockFragment clockFragment;
-    private ClockRecordFragment clockRecordFragment;
     private RegisterFragment registerFragment;
 
     private BottomBar bottomBar;
@@ -48,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_login_out:
-                IFaceApplication.instance.removeUser();
+//                IFaceApplication.instance.removeUser();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
@@ -60,13 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         bottomBar = findViewById(R.id.main_bottom_bar);
         clockFragment = new ClockFragment(this);
-        if (ApiConst.DEFAULT_ROLE_ADMIN.equals(IFaceApplication.instance.getUserDto().getRole())) {
-            registerFragment = new RegisterFragment(this);
-            bottomBar.setItems(R.xml.bottombar_tabs);
-        } else {
-            bottomBar.setItems(R.xml.bottombar_tabs_user);
-        }
-        clockRecordFragment = new ClockRecordFragment();
+        bottomBar.setItems(R.xml.bottombar_tabs_user);
         bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId) {
                 case R.id.tab_clock:
@@ -94,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 if (registerFragment != null && registerFragment.isAdded()) {
                     fragmentTransaction.remove(registerFragment);
                 }
-                if (clockRecordFragment.isAdded()) {
-                    fragmentTransaction.remove(clockRecordFragment);
-                }
                 if (!clockFragment.isAdded()) {
                     fragmentTransaction.add(R.id.main_content, clockFragment).commit();
                 }
@@ -104,9 +91,6 @@ public class MainActivity extends AppCompatActivity {
             case REGISTER_FRAGMENT:
                 if (clockFragment.isAdded()) {
                     fragmentTransaction.remove(clockFragment);
-                }
-                if (clockRecordFragment.isAdded()) {
-                    fragmentTransaction.remove(clockRecordFragment);
                 }
                 if (registerFragment != null && !registerFragment.isAdded()) {
                     fragmentTransaction.add(R.id.main_content, registerFragment).commit();
@@ -118,9 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (registerFragment != null && registerFragment.isAdded()) {
                     fragmentTransaction.remove(registerFragment);
-                }
-                if (!clockRecordFragment.isAdded()) {
-                    fragmentTransaction.add(R.id.main_content, clockRecordFragment).commit();
                 }
                 break;
             default:
