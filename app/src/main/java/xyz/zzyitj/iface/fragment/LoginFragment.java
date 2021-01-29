@@ -1,6 +1,5 @@
 package xyz.zzyitj.iface.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +7,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
-import cool.zzy.rpc.client.RpcClient;
+import cool.zzy.rpc.service.HelloService;
 import xyz.zzyitj.iface.R;
+import xyz.zzyitj.iface.SemsApplication;
 import xyz.zzyitj.iface.activity.LoginActivity;
-import xyz.zzyitj.iface.constant.Const;
 import xyz.zzyitj.iface.ui.ProgressDialog;
 
 /**
@@ -42,7 +42,22 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void login() {
 //        progressDialog.show();
-        @SuppressLint("DefaultLocale") RpcClient rpcClient = new RpcClient(String.format("%s:%d", Const.RPC_IP, Const.RPC_PORT));
+        HelloService helloService = SemsApplication.instance.getHelloService();
+        if (helloService != null) {
+            Toast.makeText(getLoginActivity(), helloService.hello("还没写！！！"), Toast.LENGTH_LONG).show();
+        } else {
+            AlertDialog dialog = new AlertDialog.Builder(this.getActivity())
+                    .setTitle("Error")
+                    .setMessage("Can not connect to remote server")
+                    .setPositiveButton("Reconnect", (dialog1, which) -> {
+                        SemsApplication.instance.initRPC();
+                    })
+                    .setNegativeButton("Exit", (dialog12, which) -> {
+                        this.getActivity().finish();
+                    })
+                    .create();
+            dialog.show();
+        }
     }
 
     @Nullable
@@ -76,7 +91,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.fragment_login_button:
                 login();
-                Toast.makeText(getLoginActivity(), "还没写！！！", Toast.LENGTH_LONG).show();
                 break;
             case R.id.fragment_login_register:
                 LoginActivity loginActivity = getLoginActivity();

@@ -1,6 +1,6 @@
 package cool.zzy.rpc.client.proxy;
 
-import coo.zzy.rpc.common.codec.RpcRequest;
+import cool.zzy.rpc.common.codec.RpcRequest;
 import cool.zzy.rpc.client.core.ConnectionManager;
 import cool.zzy.rpc.client.core.RpcClientHandler;
 
@@ -47,7 +47,8 @@ public class ObjectProxy<T> implements InvocationHandler {
         request.setParameters(args);
         request.setVersion(version);
 //        String serviceKey = ServiceUtils.generateKey(method.getDeclaringClass().getName(), version);
-        RpcClientHandler handler = ConnectionManager.getInstance().getHandler();
+        RpcClientHandler handler = ConnectionManager.getInstance().getHandler(future -> {
+        });
         RpcFuture future = handler.sendRequest(request);
         return future.get();
     }

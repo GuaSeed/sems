@@ -1,4 +1,4 @@
-package coo.zzy.rpc.common.util;
+package cool.zzy.rpc.common.util;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;

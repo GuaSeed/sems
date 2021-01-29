@@ -6,6 +6,6 @@ package xyz.zzyitj.iface.constant;
  * @since 1.0
  */
 public class Const {
-    public static final String RPC_IP = "127.0.0.1";
-    public static final int RPC_PORT = 8080;
+    public static final String RPC_IP = "8.131.59.159";
+    public static final int RPC_PORT = 11280;
 }

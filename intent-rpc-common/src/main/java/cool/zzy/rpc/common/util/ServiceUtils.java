@@ -1,4 +1,4 @@
-package coo.zzy.rpc.common.util;
+package cool.zzy.rpc.common.util;
 
 /**
  * @author intent zzy.main@gmail.com

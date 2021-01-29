@@ -2,6 +2,7 @@ package cool.zzy.rpc.client;
 
 import cool.zzy.rpc.client.core.ConnectionManager;
 import cool.zzy.rpc.client.proxy.ObjectProxy;
+import io.netty.channel.ChannelFutureListener;
 
 import java.lang.reflect.Proxy;
 
@@ -12,14 +13,14 @@ import java.lang.reflect.Proxy;
  */
 public class RpcClient {
 
-    public RpcClient(String address) {
+    public RpcClient(String address, ChannelFutureListener callback) {
         String[] array = address.split(":");
         String host = array[0];
         int port = Integer.parseInt(array[1]);
-        ConnectionManager.getInstance().connectServerNode(host, port);
+        ConnectionManager.getInstance().connectServerNode(host, port, callback);
     }
 
-    public <T> T createService(Class<T> interfaceClass, int version) {
+    public static <T> T createService(Class<T> interfaceClass, int version) {
         return (T) Proxy.newProxyInstance(
                 interfaceClass.getClassLoader(),
                 new Class<?>[]{interfaceClass},

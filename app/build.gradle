@@ -55,7 +55,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // rpc
+    implementation('io.netty:netty-all:4.1.42.Final')
     implementation project(':intent-rpc-client')
+    implementation project(':intent-rpc-service')
     // bottombar
     implementation 'com.roughike:bottom-bar:2.3.1'
     // commons

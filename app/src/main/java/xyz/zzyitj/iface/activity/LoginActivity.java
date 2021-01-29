@@ -1,6 +1,7 @@
 package xyz.zzyitj.iface.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -30,12 +31,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        Log.d(TAG, "onCreate: ");
         init();
         initViews();
         //initToken();
     }
 
     private void init() {
+        Log.d(TAG, "init: ");
 //        ApiUserDto apiUserDto = IFaceApplication.instance.getUser();
 //        if (apiUserDto != null) {
 //            startActivity(new Intent(this, MainActivity.class));

@@ -1,7 +1,7 @@
-package coo.zzy.rpc.common.codec;
+package cool.zzy.rpc.common.codec;
 
 import android.util.Log;
-import coo.zzy.rpc.common.serializer.Serializer;
+import cool.zzy.rpc.common.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

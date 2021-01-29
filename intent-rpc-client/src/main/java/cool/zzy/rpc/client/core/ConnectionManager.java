@@ -31,12 +31,12 @@ public class ConnectionManager {
     private long waitTimeout = 5000;
     private InetSocketAddress remotePeer;
 
-    public RpcClientHandler getHandler() {
+    public RpcClientHandler getHandler(ChannelFutureListener callback) {
         while (this.handler == null) {
             try {
                 waitingHandler();
                 if (remotePeer != null) {
-                    connectServerNode(remotePeer);
+                    connectServerNode(remotePeer, callback);
                 }
             } catch (InterruptedException e) {
                 Log.e(TAG, "Waiting for available service is interrupted!", e);
@@ -65,7 +65,8 @@ public class ConnectionManager {
     }
 
     public void close() {
-        getHandler().close(channelFuture -> {
+        getHandler(future -> {
+        }).close(channelFuture -> {
             Log.i(TAG, "finish the peer " + handler.remotePeer);
             handler = null;
         });
@@ -79,20 +80,19 @@ public class ConnectionManager {
         return SingletonHandler.INSTANCE;
     }
 
-    public void connectServerNode(String host, int port) {
-        connectServerNode(new InetSocketAddress(host, port));
+    public void connectServerNode(String host, int port, ChannelFutureListener callback) {
+        connectServerNode(new InetSocketAddress(host, port), callback);
     }
 
-    public void connectServerNode(InetSocketAddress address) {
+    public void connectServerNode(InetSocketAddress address, ChannelFutureListener callback) {
         this.remotePeer = address;
         threadPoolExecutor.submit(() -> {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventLoopGroup)
                     .channel(NioSocketChannel.class)
                     .handler(new RpcClientInitializer());
-
             ChannelFuture channelFuture = bootstrap.connect(remotePeer);
-            channelFuture.addListener((ChannelFutureListener) cf -> {
+            channelFuture.addListeners(callback, (ChannelFutureListener) cf -> {
                 if (cf.isSuccess()) {
                     Log.i(TAG, "Successfully connect to remote server, remote peer = " + remotePeer);
                     this.handler = channelFuture.channel().pipeline().get(RpcClientHandler.class);

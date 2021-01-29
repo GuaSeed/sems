@@ -1,4 +1,4 @@
-package coo.zzy.rpc.common.serializer;
+package cool.zzy.rpc.common.serializer;
 
 /**
  * @author intent zzy.main@gmail.com

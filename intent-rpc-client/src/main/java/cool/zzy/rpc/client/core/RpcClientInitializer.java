@@ -1,15 +1,13 @@
 package cool.zzy.rpc.client.core;
 
 
-import coo.zzy.rpc.common.codec.*;
-import coo.zzy.rpc.common.serializer.JavaSerializer;
-import coo.zzy.rpc.common.serializer.Serializer;
+import cool.zzy.rpc.common.codec.*;
+import cool.zzy.rpc.common.serializer.JavaSerializer;
+import cool.zzy.rpc.common.serializer.Serializer;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 
 import java.util.concurrent.TimeUnit;
@@ -24,7 +22,7 @@ public class RpcClientInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         Serializer serializer = JavaSerializer.class.newInstance();
         ChannelPipeline channelPipeline = socketChannel.pipeline();
-        channelPipeline.addLast(new LoggingHandler(LogLevel.INFO));
+//        channelPipeline.addLast(new LoggingHandler(LogLevel.INFO));
         channelPipeline.addLast(new IdleStateHandler(0, 0, Beat.BEAT_TIMEOUT, TimeUnit.SECONDS));
         channelPipeline.addLast(new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 0));
         channelPipeline.addLast(new RpcDecoder(RpcResponse.class, serializer));

@@ -1,8 +1,12 @@
 package xyz.zzyitj.iface;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
+import cool.zzy.rpc.client.RpcClient;
+import cool.zzy.rpc.service.HelloService;
+import xyz.zzyitj.iface.constant.Const;
 
 /**
  * xyz.zzyitj.iface
@@ -14,20 +18,40 @@ import android.util.Log;
 public class SemsApplication extends Application {
     private static final String TAG = SemsApplication.class.getSimpleName();
     public static SemsApplication instance;
-
-    /**
-     * access_token的有效期为30天，切记需要每30天进行定期更换，或者每次请求都拉取新token
-     */
-    private String apiToken;
+    private volatile boolean isInitRPC;
+    private RpcClient rpcClient;
+    private HelloService helloService;
 
     public SemsApplication() {
         instance = this;
+        Log.d(TAG, "SemsApplication: ");
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate");
+        Log.d(TAG, "onCreate: ");
+        initRPC();
+    }
+
+    @SuppressLint("DefaultLocale")
+    public void initRPC() {
+        Log.d(TAG, "initRPC: ");
+        rpcClient = new RpcClient(
+                String.format("%s:%d", Const.RPC_IP, Const.RPC_PORT),
+                future -> {
+                    if (future.isSuccess()) {
+                        initService();
+                    } else {
+                        Log.d(TAG, "initRPC: " + future.toString());
+                    }
+                    isInitRPC = future.isSuccess();
+                });
+    }
+
+    private void initService() {
+        Log.d(TAG, "initService: ");
+        helloService = RpcClient.createService(HelloService.class, 1);
     }
 
     /**
@@ -80,6 +104,18 @@ public class SemsApplication extends Application {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         editor.apply();
+    }
+
+    public RpcClient getRpcClient() {
+        return rpcClient;
+    }
+
+    public HelloService getHelloService() {
+        return helloService;
+    }
+
+    public boolean isInitRPC() {
+        return isInitRPC;
     }
 
 //    public void putUser(ApiUserDto apiUserDto) {
