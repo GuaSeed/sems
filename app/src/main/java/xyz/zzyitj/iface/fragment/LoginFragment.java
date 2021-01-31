@@ -13,7 +13,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
-import cool.zzy.rpc.service.HelloService;
+import cool.zzy.sems.context.service.HelloService;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.SemsApplication;
 import xyz.zzyitj.iface.activity.LoginActivity;

@@ -1,3 +1,4 @@
+include ':intent-rpc-model'
 include ':intent-rpc-common'
 include 'intent-rpc-client'
 include ':intent-rpc-service'

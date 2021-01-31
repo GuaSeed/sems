@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
-import cool.zzy.rpc.client.RpcClient;
-import cool.zzy.rpc.service.HelloService;
+import cool.zzy.sems.rpc.client.RpcClient;
+import cool.zzy.sems.context.service.HelloService;
 import xyz.zzyitj.iface.constant.Const;
 
 /**

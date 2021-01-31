@@ -29,12 +29,6 @@ android {
 }
 
 dependencies {
-    implementation project(':intent-rpc-common')
     implementation('io.netty:netty-all:4.1.42.Final')
-    implementation('org.apache.commons:commons-collections4:4.1')
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation project(':intent-rpc-common')
 }
