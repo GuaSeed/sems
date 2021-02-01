@@ -11,28 +11,21 @@ import cool.zzy.sems.context.model.User;
  */
 public interface UserService {
     /**
-     * 根据用户Id获取用户
-     *
-     * @param id id
-     * @return {@link User} or null
-     */
-    User getUserById(Integer id);
-
-    /**
      * 登录
      * 根据用户的邮箱和Hash后的密码在数据库中查询用户
      *
-     * @param ukEmail  邮箱（唯一）
+     * @param email    邮箱（唯一）
      * @param password 密码（未Hash之前的原始密码）
      * @return {@link User} or null
      */
-    User signIn(String ukEmail, String password);
+    User signIn(String email, String password);
 
     /**
      * 注册用户
      *
      * @param user {@link User}
      * @return {@link User}
+     * @throws Exception 用户注册异常
      */
-    User register(User user);
+    User register(User user) throws Exception;
 }

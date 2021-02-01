@@ -1,7 +1,6 @@
 package xyz.zzyitj.iface.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = LoginFragment.class.getSimpleName();
     private View rootView;
 
+    private AppCompatEditText emailEditText;
     private AppCompatEditText passwordEditText;
     private AppCompatButton loginButton;
     private AppCompatButton registerButton;
@@ -42,14 +42,26 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private boolean isLogin = false;
 
+    private void loginCancel() {
+        progressDialog.dismiss();
+        isLogin = false;
+    }
+
     private void login() {
-//        progressDialog.show();
+        progressDialog.show();
         UserService userService = SemsApplication.instance.getUserService();
         if (userService != null) {
-            User user = userService.getUserById(1);
-            Log.d(TAG, "login: " + user.toString());
-            Toast.makeText(getLoginActivity(), user.getUkEmail(), Toast.LENGTH_LONG).show();
+            User user = userService.signIn(emailEditText.getText().toString(),
+                    passwordEditText.getText().toString());
+            loginCancel();
+            if (user == null) {
+                Toast.makeText(getLoginActivity(), "账户或密码错误！", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getLoginActivity(), String.format("用户: %s 登录成功!", user.getUkEmail()),
+                        Toast.LENGTH_LONG).show();
+            }
         } else {
+            loginCancel();
             AlertDialog dialog = new AlertDialog.Builder(this.getActivity())
                     .setTitle("Error")
                     .setMessage("Can not connect to remote server")
@@ -76,6 +88,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void initViews(View rootView) {
         progressDialog = new ProgressDialog(getActivity(), getString(R.string.logging));
+        emailEditText = rootView.findViewById(R.id.fragment_login_account);
         passwordEditText = rootView.findViewById(R.id.fragment_login_password);
         loginButton = rootView.findViewById(R.id.fragment_login_button);
         registerButton = rootView.findViewById(R.id.fragment_login_register);

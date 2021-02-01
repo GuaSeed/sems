@@ -50,6 +50,9 @@ public class RpcFuture implements Future<Object> {
     public Object get() throws InterruptedException, ExecutionException {
         sync.acquire(1);
         if (this.response != null) {
+            if (this.response.getError() != null) {
+                return new Exception(this.response.getError());
+            }
             return this.response.getResult();
         }
         return null;
