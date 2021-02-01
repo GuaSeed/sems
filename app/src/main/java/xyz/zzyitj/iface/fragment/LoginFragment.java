@@ -1,6 +1,7 @@
 package xyz.zzyitj.iface.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
-import cool.zzy.sems.context.service.HelloService;
+import cool.zzy.sems.context.model.User;
+import cool.zzy.sems.context.service.UserService;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.SemsApplication;
 import xyz.zzyitj.iface.activity.LoginActivity;
@@ -42,9 +44,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void login() {
 //        progressDialog.show();
-        HelloService helloService = SemsApplication.instance.getHelloService();
-        if (helloService != null) {
-            Toast.makeText(getLoginActivity(), helloService.hello("还没写！！！"), Toast.LENGTH_LONG).show();
+        UserService userService = SemsApplication.instance.getUserService();
+        if (userService != null) {
+            User user = userService.getUserById(1);
+            Log.d(TAG, "login: " + user.toString());
+            Toast.makeText(getLoginActivity(), user.getUkEmail(), Toast.LENGTH_LONG).show();
         } else {
             AlertDialog dialog = new AlertDialog.Builder(this.getActivity())
                     .setTitle("Error")

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
+import cool.zzy.sems.context.service.UserService;
 import cool.zzy.sems.rpc.client.RpcClient;
 import cool.zzy.sems.context.service.HelloService;
 import xyz.zzyitj.iface.constant.Const;
@@ -21,6 +22,7 @@ public class SemsApplication extends Application {
     private volatile boolean isInitRPC;
     private RpcClient rpcClient;
     private HelloService helloService;
+    private UserService userService;
 
     public SemsApplication() {
         instance = this;
@@ -52,6 +54,7 @@ public class SemsApplication extends Application {
     private void initService() {
         Log.d(TAG, "initService: ");
         helloService = RpcClient.createService(HelloService.class, 1);
+        userService = RpcClient.createService(UserService.class, 1);
     }
 
     /**
@@ -112,6 +115,10 @@ public class SemsApplication extends Application {
 
     public HelloService getHelloService() {
         return helloService;
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 
     public boolean isInitRPC() {

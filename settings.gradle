@@ -1,6 +1,6 @@
-include ':intent-rpc-model'
-include ':intent-rpc-common'
-include 'intent-rpc-client'
-include ':intent-rpc-service'
-include ':app'
 rootProject.name = "sems"
+include ':app'
+include ':intent-rpc-common'
+include ':intent-rpc-client'
+include ':intent-rpc-service'
+include ':intent-rpc-model'
