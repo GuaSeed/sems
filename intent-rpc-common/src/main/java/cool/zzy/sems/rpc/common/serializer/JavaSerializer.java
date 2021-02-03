@@ -9,27 +9,39 @@ import java.io.*;
  */
 public class JavaSerializer implements Serializer {
     @Override
-    public <T> byte[] serialize(T obj) {
+    public <T> byte[] serialize(T obj) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream;
+        ObjectOutputStream objectOutputStream = null;
         try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
             objectOutputStream.writeObject(obj);
             return byteArrayOutputStream.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            if (objectOutputStream != null) {
+                try {
+                    objectOutputStream.close();
+                } catch (IOException ignored) {
+                }
+            }
         }
-        return new byte[0];
     }
 
     @Override
-    public <T> Object deserialize(byte[] data, Class<T> clazz) {
+    public <T> Object deserialize(byte[] data, Class<T> clazz) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream byteArrayInputStream;
+        ObjectInputStream objectInputStream = null;
         try {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data);
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            byteArrayInputStream = new ByteArrayInputStream(data);
+            objectInputStream = new ObjectInputStream(byteArrayInputStream);
             return objectInputStream.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } finally {
+            if (objectInputStream != null) {
+                try {
+                    objectInputStream.close();
+                } catch (IOException ignored) {
+                }
+            }
         }
-        return null;
     }
 }
