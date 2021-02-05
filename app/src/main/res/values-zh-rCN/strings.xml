@@ -62,4 +62,5 @@
     <string name="args_error">参数错误</string>
     <string name="clause_error">你应该勾选同意条款单选框</string>
     <string name="password_length_error">密码长度不应该小于6</string>
+    <string name="reply_password_error">确认密码和原密码不相同</string>
 </resources>

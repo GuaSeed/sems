@@ -61,4 +61,5 @@
     <string name="args_error">Args error.</string>
     <string name="clause_error">You should aggre to the clause.</string>
     <string name="password_length_error">Password length can not less than 6.</string>
+    <string name="reply_password_error">Reply password can equals password.</string>
 </resources>

@@ -27,8 +27,6 @@ import xyz.zzyitj.iface.util.RegexUtils;
 import java.util.Objects;
 
 /**
- * xyz.zzyitj.iface.fragment
- *
  * @author intent zzy.main@gmail.com
  * @date 2020/9/14 11:13
  * @since 1.0
@@ -54,6 +52,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void login() {
+        isLogin = true;
         progressDialog.show();
         UserService userService = SemsApplication.instance.getUserService();
         if (userService != null) {
@@ -63,7 +62,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             if (user == null) {
                 loginFail(user);
             } else {
-                loginSuccess(user);
+                loginSuccess(getLoginActivity(), user);
             }
         } else {
             loginCancel();
@@ -76,12 +75,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         Toast.makeText(getLoginActivity(), R.string.login_fail, Toast.LENGTH_LONG).show();
     }
 
-    private void loginSuccess(User user) {
+    public static void loginSuccess(LoginActivity loginActivity, User user) {
         SemsApplication.instance.putUser(user);
-        Toast.makeText(getLoginActivity(), String.format("用户: %s 登录成功!", user.getUkEmail()),
+        Toast.makeText(loginActivity, String.format("用户: %s 登录成功!", user.getUkEmail()),
                 Toast.LENGTH_LONG).show();
-        startActivity(new Intent(this.getLoginActivity(), MainActivity.class));
-        this.getLoginActivity().finish();
+        loginActivity.startActivity(new Intent(loginActivity, MainActivity.class));
+        loginActivity.finish();
     }
 
     @Nullable
@@ -114,7 +113,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_login_button:
-                if (checkLoginArgs()) {
+                if (checkLoginArgs() && !isLogin) {
                     login();
                 }
                 break;
@@ -146,5 +145,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        clearViewsData();
+    }
+
+    private void clearViewsData() {
+        try {
+            Objects.requireNonNull(emailEditText.getText()).clear();
+            Objects.requireNonNull(passwordEditText.getText()).clear();
+            clauseCheckBox.setChecked(false);
+        } catch (Exception ignored) {
+        }
     }
 }

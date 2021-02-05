@@ -1,17 +1,16 @@
 package xyz.zzyitj.iface.activity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import android.widget.Toast;
 import cool.zzy.sems.context.model.User;
+import cool.zzy.sems.context.service.UserService;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.SemsApplication;
 import xyz.zzyitj.iface.fragment.LoginFragment;
 import xyz.zzyitj.iface.fragment.RegisterFragment;
+import xyz.zzyitj.iface.util.DialogUtils;
 
 import java.util.Objects;
 
@@ -22,44 +21,57 @@ import java.util.Objects;
  * @date 2020/9/14 11:03
  * @since 1.0
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-    private Fragment currentFragment;
     public LoginFragment loginFragment;
     public RegisterFragment registerFragment;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    protected void init() {
+        Log.d(TAG, "init: ");
         Objects.requireNonNull(getSupportActionBar()).hide();
-        Log.d(TAG, "onCreate: ");
-        init();
-        initViews();
     }
 
-    private void init() {
-        Log.d(TAG, "init: ");
+    @Override
+    protected void onResume() {
+        super.onResume();
+        staticLogin(this);
+    }
+
+    private static void staticLogin(Activity activity) {
         User user = SemsApplication.instance.getUser();
         if (user != null) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            UserService userService = SemsApplication.instance.getUserService();
+            if (userService != null) {
+                if (userService.signIn(user.getUkEmail(), user.getPasswordHash()) != null) {
+                    if (activity.getClass() != MainActivity.class) {
+                        activity.startActivity(new Intent(activity, MainActivity.class));
+                        activity.finish();
+                    }
+                } else {
+                    Toast.makeText(activity, R.string.login_fail, Toast.LENGTH_LONG).show();
+                }
+            } else {
+                DialogUtils.showConnectErrorDialog(activity);
+            }
         }
     }
 
-    private void initViews() {
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected int getFragmentViewId() {
+        return R.id.login_content;
+    }
+
+    @Override
+    protected void initViews() {
         loginFragment = new LoginFragment();
-        registerFragment = new RegisterFragment(this);
+        registerFragment = new RegisterFragment();
         setCurrentFragment(loginFragment);
-    }
-
-    public void setCurrentFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (currentFragment != null) {
-            fragmentTransaction.remove(currentFragment);
-        }
-        currentFragment = fragment;
-        fragmentTransaction.add(R.id.login_content, currentFragment).commit();
     }
 }
