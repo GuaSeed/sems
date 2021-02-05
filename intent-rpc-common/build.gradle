@@ -28,5 +28,6 @@ android {
 }
 
 dependencies {
+    testImplementation 'junit:junit:4.12'
     implementation('io.netty:netty-all:4.1.42.Final')
 }

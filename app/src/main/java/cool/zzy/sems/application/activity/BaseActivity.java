@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import cool.zzy.sems.application.SemsApplication;
+import cool.zzy.sems.application.util.IPUtils;
 
 /**
  * @author intent zzy.main@gmail.com
@@ -20,6 +22,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getContentView());
         init();
         initViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (SemsApplication.instance.getIp() == null || "".equals(SemsApplication.instance.getIp())) {
+            IPUtils.getMyIp();
+        }
     }
 
     protected abstract void initViews();

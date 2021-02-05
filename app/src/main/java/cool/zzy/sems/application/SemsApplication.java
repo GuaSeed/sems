@@ -23,6 +23,7 @@ public class SemsApplication extends Application {
     private static final String TAG = SemsApplication.class.getSimpleName();
     public static SemsApplication instance;
     private volatile boolean isInitRPC;
+    private String ip;
     private User user;
     private RpcClient rpcClient;
     private HelloService helloService;
@@ -146,5 +147,13 @@ public class SemsApplication extends Application {
 
     public void removeUser() {
         removeLocalStorage(Const.SHARED_PREFS_NAME, Const.SHARED_PREFS_USER);
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

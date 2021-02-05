@@ -1,17 +1,13 @@
 package cool.zzy.sems.application.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * @author intent zzy.main@gmail.com
  * @date 2020/12/15 18:20
  * @since 1.0
  */
-@Getter
-@Setter
-@ToString
+@Data
 public class Rect {
     private int x;
     private int y;

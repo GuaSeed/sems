@@ -74,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/input_edit_margin_left"
                     android:layout_marginEnd="@dimen/input_edit_margin_right"
+                    android:inputType="text"
                     android:theme="@style/EditTextStyle"
                     android:textCursorDrawable="@drawable/edit_cursor_color"/>
 

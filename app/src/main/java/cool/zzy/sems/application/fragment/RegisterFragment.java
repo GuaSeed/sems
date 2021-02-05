@@ -112,7 +112,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             user.setUkEmail(Objects.requireNonNull(emailEditText.getText()).toString());
             user.setPasswordHash(Objects.requireNonNull(passwordEditText.getText()).toString());
             user.setGender(gender);
-            user.setIp("127.0.0.1");
+            user.setIp(SemsApplication.instance.getIp());
             try {
                 user = userService.register(user);
                 LoginFragment.loginSuccess(getLoginActivity(), user);
