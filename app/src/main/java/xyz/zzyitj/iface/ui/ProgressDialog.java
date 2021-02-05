@@ -20,12 +20,12 @@ public class ProgressDialog extends Dialog {
         super(context);
         setContentView(R.layout.dialog_progress);
         initViews();
-        initDatas(title);
+        initData(title);
         // 按空白处不能取消动画
         setCanceledOnTouchOutside(false);
     }
 
-    private void initDatas(String title) {
+    private void initData(String title) {
         titleTextView.setText(title);
     }
 

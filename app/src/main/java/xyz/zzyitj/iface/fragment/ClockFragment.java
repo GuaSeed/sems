@@ -17,7 +17,6 @@ import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.activity.MainActivity;
 import xyz.zzyitj.iface.ui.ProgressDialog;
 import xyz.zzyitj.iface.util.CameraHelper;
-import xyz.zzyitj.iface.util.Utils;
 
 import java.io.File;
 
@@ -44,8 +43,6 @@ public class ClockFragment extends Fragment implements SurfaceHolder.Callback, C
 
     private ProgressDialog progressDialog;
 
-    private boolean isClock;
-
     public ClockFragment(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
@@ -62,19 +59,17 @@ public class ClockFragment extends Fragment implements SurfaceHolder.Callback, C
     }
 
     private void initOpenCV(View rootView) {
-        openCvJni = new OpencvJni();
+//        openCvJni = new OpencvJni();
         surfaceView = rootView.findViewById(R.id.fragment_clock_surface_view);
         surfaceView.getHolder().addCallback(this);
         cameraHelper = new CameraHelper(cameraId);
         cameraHelper.setPreviewCallback(this);
-
-        Utils.copyAssets(getActivity(), "lbpcascade_frontalface.xml");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        startOpenCV();
+//        startOpenCV();
     }
 
     private void startOpenCV() {
@@ -95,7 +90,7 @@ public class ClockFragment extends Fragment implements SurfaceHolder.Callback, C
     @Override
     public void onPause() {
         super.onPause();
-        stopCamera();
+//        stopCamera();
     }
 
     private void initViews(View rootView) {
@@ -138,11 +133,10 @@ public class ClockFragment extends Fragment implements SurfaceHolder.Callback, C
 
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-        openCvJni.setSurface(holder.getSurface());
+//        openCvJni.setSurface(holder.getSurface());
     }
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-
     }
 }

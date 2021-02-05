@@ -1,5 +1,6 @@
 package xyz.zzyitj.iface.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -18,7 +18,13 @@ import cool.zzy.sems.context.service.UserService;
 import xyz.zzyitj.iface.R;
 import xyz.zzyitj.iface.SemsApplication;
 import xyz.zzyitj.iface.activity.LoginActivity;
+import xyz.zzyitj.iface.activity.MainActivity;
+import xyz.zzyitj.iface.constant.Const;
 import xyz.zzyitj.iface.ui.ProgressDialog;
+import xyz.zzyitj.iface.util.DialogUtils;
+import xyz.zzyitj.iface.util.RegexUtils;
+
+import java.util.Objects;
 
 /**
  * xyz.zzyitj.iface.fragment
@@ -51,29 +57,31 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         progressDialog.show();
         UserService userService = SemsApplication.instance.getUserService();
         if (userService != null) {
-            User user = userService.signIn(emailEditText.getText().toString(),
-                    passwordEditText.getText().toString());
+            User user = userService.signIn(Objects.requireNonNull(emailEditText.getText()).toString(),
+                    Objects.requireNonNull(passwordEditText.getText()).toString());
             loginCancel();
             if (user == null) {
-                Toast.makeText(getLoginActivity(), "账户或密码错误！", Toast.LENGTH_LONG).show();
+                loginFail(user);
             } else {
-                Toast.makeText(getLoginActivity(), String.format("用户: %s 登录成功!", user.getUkEmail()),
-                        Toast.LENGTH_LONG).show();
+                loginSuccess(user);
             }
         } else {
             loginCancel();
-            AlertDialog dialog = new AlertDialog.Builder(this.getActivity())
-                    .setTitle("Error")
-                    .setMessage("Can not connect to remote server")
-                    .setPositiveButton("Reconnect", (dialog1, which) -> {
-                        SemsApplication.instance.initRPC();
-                    })
-                    .setNegativeButton("Exit", (dialog12, which) -> {
-                        this.getActivity().finish();
-                    })
-                    .create();
-            dialog.show();
+            DialogUtils.showConnectErrorDialog(this.getLoginActivity());
         }
+    }
+
+    private void loginFail(User user) {
+        SemsApplication.instance.removeUser();
+        Toast.makeText(getLoginActivity(), R.string.login_fail, Toast.LENGTH_LONG).show();
+    }
+
+    private void loginSuccess(User user) {
+        SemsApplication.instance.putUser(user);
+        Toast.makeText(getLoginActivity(), String.format("用户: %s 登录成功!", user.getUkEmail()),
+                Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this.getLoginActivity(), MainActivity.class));
+        this.getLoginActivity().finish();
     }
 
     @Nullable
@@ -87,14 +95,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initViews(View rootView) {
-        progressDialog = new ProgressDialog(getActivity(), getString(R.string.logging));
+        progressDialog = new ProgressDialog(Objects.requireNonNull(getLoginActivity()), getString(R.string.logging));
         emailEditText = rootView.findViewById(R.id.fragment_login_account);
         passwordEditText = rootView.findViewById(R.id.fragment_login_password);
         loginButton = rootView.findViewById(R.id.fragment_login_button);
         registerButton = rootView.findViewById(R.id.fragment_login_register);
         clauseCheckBox = rootView.findViewById(R.id.fragment_login_clause);
         clauseText = rootView.findViewById(R.id.fragment_login_clause_text);
-        clauseText.setOnClickListener(this);
         loginButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
     }
@@ -107,16 +114,37 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_login_button:
-                login();
+                if (checkLoginArgs()) {
+                    login();
+                }
                 break;
             case R.id.fragment_login_register:
                 LoginActivity loginActivity = getLoginActivity();
                 loginActivity.setCurrentFragment(loginActivity.registerFragment);
                 break;
-            case R.id.fragment_login_clause_text:
-                Toast.makeText(getLoginActivity(), "这里该弹出服务条款", Toast.LENGTH_LONG).show();
-                break;
             default:
         }
+    }
+
+    private boolean checkLoginArgs() {
+        if (!clauseCheckBox.isChecked()) {
+            Toast.makeText(getLoginActivity(), R.string.clause_error, Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (emailEditText.getText() == null || "".equals(emailEditText.getText().toString())) {
+            emailEditText.setError(getString(R.string.email_cannot_empty));
+            return false;
+        } else if (!RegexUtils.isEmail(emailEditText.getText())) {
+            emailEditText.setError(getString(R.string.email_format_error));
+            return false;
+        }
+        if (passwordEditText.getText() == null || "".equals(passwordEditText.getText().toString())) {
+            passwordEditText.setError(getString(R.string.password_cannot_empty));
+            return false;
+        } else if (passwordEditText.getText().toString().length() < Const.PASSWORD_MIN_LEN) {
+            passwordEditText.setError(getString(R.string.password_length_error));
+            return false;
+        }
+        return true;
     }
 }

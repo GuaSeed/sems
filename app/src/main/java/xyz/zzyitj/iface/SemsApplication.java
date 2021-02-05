@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
+import com.google.gson.Gson;
+import cool.zzy.sems.context.model.User;
+import cool.zzy.sems.context.service.HelloService;
 import cool.zzy.sems.context.service.UserService;
 import cool.zzy.sems.rpc.client.RpcClient;
-import cool.zzy.sems.context.service.HelloService;
 import xyz.zzyitj.iface.constant.Const;
 
 /**
@@ -20,6 +22,7 @@ public class SemsApplication extends Application {
     private static final String TAG = SemsApplication.class.getSimpleName();
     public static SemsApplication instance;
     private volatile boolean isInitRPC;
+    private User user;
     private RpcClient rpcClient;
     private HelloService helloService;
     private UserService userService;
@@ -125,22 +128,22 @@ public class SemsApplication extends Application {
         return isInitRPC;
     }
 
-//    public void putUser(ApiUserDto apiUserDto) {
-//        String json = new Gson().toJson(apiUserDto);
-//        putLocalStorage(ApiConst.SHARED_PREFS_NAME, ApiConst.SHARED_PREFS_USER, json);
-//        this.userDto = apiUserDto;
-//    }
+    public void putUser(User user) {
+        String json = new Gson().toJson(user);
+        putLocalStorage(Const.SHARED_PREFS_NAME, Const.SHARED_PREFS_USER, json);
+        this.user = user;
+    }
 
-//    public ApiUserDto getUser() {
-//        String data = getLocalStorage(ApiConst.SHARED_PREFS_NAME, ApiConst.SHARED_PREFS_USER, String.class);
-//        ApiUserDto apiUserDto = new Gson().fromJson(data, ApiUserDto.class);
-//        if (apiUserDto != null) {
-//            this.userDto = apiUserDto;
-//        }
-//        return apiUserDto;
-//    }
+    public User getUser() {
+        String data = getLocalStorage(Const.SHARED_PREFS_NAME, Const.SHARED_PREFS_USER, String.class);
+        User localUser = new Gson().fromJson(data, User.class);
+        if (localUser != null) {
+            this.user = localUser;
+        }
+        return localUser;
+    }
 
-//    public void removeUser() {
-//        removeLocalStorage(ApiConst.SHARED_PREFS_NAME, ApiConst.SHARED_PREFS_USER);
-//    }
+    public void removeUser() {
+        removeLocalStorage(Const.SHARED_PREFS_NAME, Const.SHARED_PREFS_USER);
+    }
 }

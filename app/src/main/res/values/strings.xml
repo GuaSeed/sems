@@ -54,4 +54,11 @@
     <string name="have_account">Have account?</string>
     <string name="forget_password">Forget password</string>
     <string name="info">Info</string>
+    <string name="error">Error</string>
+    <string name="connect_rpc_error">Can not connect to remote server.</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="exit">Exit</string>
+    <string name="args_error">Args error.</string>
+    <string name="clause_error">You should aggre to the clause.</string>
+    <string name="password_length_error">Password length can not less than 6.</string>
 </resources>

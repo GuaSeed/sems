@@ -80,12 +80,13 @@
                 <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/fragment_login_account"
                         android:ems="15"
-                        android:hint="@string/input_user_name_hint"
+                        android:hint="@string/input_email_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/input_edit_margin_left"
                         android:layout_marginEnd="@dimen/input_edit_margin_right"
                         android:theme="@style/EditTextStyle"
+                        android:inputType="textEmailAddress"
                         android:textCursorDrawable="@drawable/edit_cursor_color"/>
 
             </LinearLayout>

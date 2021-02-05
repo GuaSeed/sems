@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">智能快递管理系统</string>
+    <string name="app_name">智能快递取件系统</string>
     <string name="input">录入</string>
     <string name="camera_permission_not_granted">app没有授予相机权限！无法启动</string>
     <string name="clock">打卡</string>
@@ -34,7 +34,7 @@
     <string name="login_out">退出登录</string>
     <string name="login_success">登录成功</string>
     <string name="face_login">人脸登录</string>
-    <string name="login_fail">手机号或密码错误</string>
+    <string name="login_fail">邮箱或密码错误</string>
     <string name="no_same_face_with_library">人脸库没有该用户</string>
     <string name="clock_success">打卡成功</string>
     <string name="clock_error">打卡错误</string>
@@ -46,8 +46,8 @@
     <string name="late">迟到</string>
     <string name="leave_early">早退</string>
     <string name="rerecognition">重新识别</string>
-    <string name="input_user_name_hint">请您输入用户名</string>
-    <string name="input_email_hint">请输入注册邮箱</string>
+    <string name="input_user_name_hint">请输入您的用户名</string>
+    <string name="input_email_hint">请输入您的邮箱</string>
     <string name="input_password_hint">请输入您的密码</string>
     <string name="input_reply_password_hint">请再次确认密码</string>
     <string name="agree_we">同意我们的</string>
@@ -55,4 +55,11 @@
     <string name="have_account">已有帐号？</string>
     <string name="forget_password">忘记密码？</string>
     <string name="info">计算机与软件工程学院2017级毕业设计\n何东洋&amp;周智勇</string>
+    <string name="error">错误</string>
+    <string name="connect_rpc_error">无法连接到服务器</string>
+    <string name="reconnect">重新连接</string>
+    <string name="exit">退出</string>
+    <string name="args_error">参数错误</string>
+    <string name="clause_error">你应该勾选同意条款单选框</string>
+    <string name="password_length_error">密码长度不应该小于6</string>
 </resources>

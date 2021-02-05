@@ -1,12 +1,15 @@
 package xyz.zzyitj.iface.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import cool.zzy.sems.context.model.User;
 import xyz.zzyitj.iface.R;
+import xyz.zzyitj.iface.SemsApplication;
 import xyz.zzyitj.iface.fragment.LoginFragment;
 import xyz.zzyitj.iface.fragment.RegisterFragment;
 
@@ -34,16 +37,15 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: ");
         init();
         initViews();
-        //initToken();
     }
 
     private void init() {
         Log.d(TAG, "init: ");
-//        ApiUserDto apiUserDto = IFaceApplication.instance.getUser();
-//        if (apiUserDto != null) {
-//            startActivity(new Intent(this, MainActivity.class));
-//            finish();
-//        }
+        User user = SemsApplication.instance.getUser();
+        if (user != null) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     }
 
     private void initViews() {

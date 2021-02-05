@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import com.roughike.bottombar.BottomBar;
 import xyz.zzyitj.iface.R;
+import xyz.zzyitj.iface.SemsApplication;
 import xyz.zzyitj.iface.fragment.ClockFragment;
 import xyz.zzyitj.iface.fragment.RegisterFragment;
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_login_out:
-//                IFaceApplication.instance.removeUser();
+                SemsApplication.instance.removeUser();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
