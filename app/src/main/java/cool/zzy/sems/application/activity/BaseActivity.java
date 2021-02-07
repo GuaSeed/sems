@@ -14,6 +14,7 @@ import cool.zzy.sems.application.util.IPUtils;
  * @since 1.0
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    private static final String TAG = BaseActivity.class.getSimpleName();
     private Fragment currentFragment;
 
     @Override
@@ -22,6 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getContentView());
         init();
         initViews();
+        initData();
     }
 
     @Override
@@ -32,11 +34,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected abstract void initViews();
+    protected abstract int getContentView();
 
     protected abstract void init();
 
-    protected abstract int getContentView();
+    protected abstract void initViews();
+
+    protected abstract void initData();
+
+    protected abstract int getFragmentViewId();
 
     public void setCurrentFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -46,6 +52,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         currentFragment = fragment;
         fragmentTransaction.add(getFragmentViewId(), currentFragment).commit();
     }
-
-    protected abstract int getFragmentViewId();
 }

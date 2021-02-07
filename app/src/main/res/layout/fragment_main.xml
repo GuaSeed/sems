@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="UselessParent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="224dp"
+                    android:background="@drawable/user_top_background"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/fragment_main_title"
+                    android:text="@string/my_express"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/action_bar_size"
+                    android:layout_margin="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                    android:id="@+id/fragment_main_user_linear"
+                    android:layout_below="@id/fragment_main_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/fragment_main_username"
+                        android:text="@string/user_name"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/action_bar_size"
+                        android:layout_margin="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/fragment_main_setting"
+                        android:text="@string/setting"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/setting_text_size"
+                        android:layout_margin="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                    android:layout_below="@id/fragment_main_user_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_layout_height"
+                    android:background="@drawable/text_box"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="@dimen/input_layout_margin_bottom"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/fragment_main_input"
+                        android:ems="15"
+                        android:hint="@string/input_express_number_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="@dimen/input_edit_margin_right"
+                        android:inputType="number"
+                        android:theme="@style/EditTextStyle"
+                        android:textCursorDrawable="@drawable/edit_cursor_color"
+                        tools:ignore="RelativeOverlap"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/fragment_main_scan"
+                        android:layout_width="31dp"
+                        android:layout_height="28dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/qr_code"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <!--        <androidx.appcompat.widget.AppCompatImageView-->
+        <!--                android:id="@+id/fragment_clock_barcode"-->
+        <!--                android:layout_width="207dp"-->
+        <!--                android:layout_height="98dp"-->
+        <!--                android:layout_centerInParent="true"/>-->
+
+        <!--        <SurfaceView-->
+        <!--                android:id="@+id/fragment_clock_surface_view"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"/>-->
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

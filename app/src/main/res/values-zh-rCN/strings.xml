@@ -63,4 +63,7 @@
     <string name="clause_error">你应该勾选同意条款单选框</string>
     <string name="password_length_error">密码长度不应该小于6</string>
     <string name="reply_password_error">确认密码和原密码不相同</string>
+    <string name="my_express">我的快递</string>
+    <string name="setting">设置</string>
+    <string name="input_express_number_hint">输入或扫一扫快递单号</string>
 </resources>

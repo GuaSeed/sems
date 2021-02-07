@@ -1,18 +1,59 @@
 package cool.zzy.sems.application.activity;
 
-import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
 import cool.zzy.sems.application.R;
-import cool.zzy.sems.application.SemsApplication;
-import cool.zzy.sems.application.fragment.ClockFragment;
+import cool.zzy.sems.application.fragment.MainFragment;
+import cool.zzy.sems.application.util.UserUtils;
+
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
-    private ClockFragment clockFragment;
+    private MainFragment mainFragment;
 
     private BottomBar bottomBar;
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void init() {
+        Objects.requireNonNull(getSupportActionBar()).hide();
+    }
+
+    @Override
+    protected void initViews() {
+        bottomBar = findViewById(R.id.main_bottom_bar);
+    }
+
+    @Override
+    protected void initData() {
+        mainFragment = new MainFragment();
+        bottomBar.setItems(R.xml.bottombar_tabs_user);
+        for (int i = 0; i < bottomBar.getTabCount(); i++) {
+            BottomBarTab tab = bottomBar.getTabAtPosition(i);
+            tab.setGravity(Gravity.CENTER);
+        }
+        bottomBar.setOnTabSelectListener(tabId -> {
+            switch (tabId) {
+                case R.id.tab_clock:
+                    setCurrentFragment(mainFragment);
+                    break;
+                default:
+            }
+        });
+    }
+
+    @Override
+    protected int getFragmentViewId() {
+        return R.id.main_content;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -25,43 +66,11 @@ public class MainActivity extends BaseActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_login_out:
-                SemsApplication.instance.removeUser();
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
+                UserUtils.logout(this);
                 break;
             default:
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void initViews() {
-        bottomBar = findViewById(R.id.main_bottom_bar);
-        clockFragment = new ClockFragment(this);
-        bottomBar.setItems(R.xml.bottombar_tabs_user);
-        bottomBar.setOnTabSelectListener(tabId -> {
-            switch (tabId) {
-                case R.id.tab_clock:
-                    setCurrentFragment(clockFragment);
-                    break;
-                default:
-            }
-        });
-    }
-
-    @Override
-    protected void init() {
-
-    }
-
-    @Override
-    protected int getContentView() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected int getFragmentViewId() {
-        return R.id.main_content;
     }
 
     public void changeBottomTab(int pos) {

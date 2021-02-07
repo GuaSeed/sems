@@ -1,18 +1,12 @@
 package cool.zzy.sems.application.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
 import cool.zzy.sems.application.R;
 import cool.zzy.sems.application.SemsApplication;
 import cool.zzy.sems.application.activity.LoginActivity;
@@ -31,9 +25,8 @@ import java.util.Objects;
  * @date 2020/9/14 11:13
  * @since 1.0
  */
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends BaseFragment {
     private static final String TAG = LoginFragment.class.getSimpleName();
-    private View rootView;
 
     private AppCompatEditText emailEditText;
     private AppCompatEditText passwordEditText;
@@ -83,17 +76,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         loginActivity.finish();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        initViews(rootView);
-        return rootView;
+    protected int getLayout() {
+        return R.layout.fragment_login;
     }
 
-    private void initViews(View rootView) {
+    @Override
+    protected void initViews(View rootView) {
         progressDialog = new ProgressDialog(Objects.requireNonNull(getLoginActivity()), getString(R.string.logging));
         emailEditText = rootView.findViewById(R.id.fragment_login_account);
         passwordEditText = rootView.findViewById(R.id.fragment_login_password);
@@ -101,6 +90,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         registerButton = rootView.findViewById(R.id.fragment_login_register);
         clauseCheckBox = rootView.findViewById(R.id.fragment_login_clause);
         clauseText = rootView.findViewById(R.id.fragment_login_clause_text);
+    }
+
+    @Override
+    protected void initData() {
         loginButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
     }
@@ -110,7 +103,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    protected void viewOnClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_login_button:
                 if (checkLoginArgs() && !isLogin) {

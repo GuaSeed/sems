@@ -5,7 +5,10 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +21,6 @@ import cool.zzy.sems.application.R;
 import cool.zzy.sems.application.activity.MainActivity;
 import cool.zzy.sems.application.ui.ProgressDialog;
 import cool.zzy.sems.application.util.CameraHelper;
-import cool.zzy.sems.application.util.EAN13Utils;
 
 import java.io.File;
 
@@ -56,7 +58,7 @@ public class ClockFragment extends Fragment implements SurfaceHolder.Callback, C
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_clock, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
         initOpenCV(rootView);
         initViews(rootView);
         return rootView;
@@ -68,8 +70,8 @@ public class ClockFragment extends Fragment implements SurfaceHolder.Callback, C
 //        surfaceView.getHolder().addCallback(this);
         cameraHelper = new CameraHelper(cameraId);
         cameraHelper.setPreviewCallback(this);
-        barcodeImageView = rootView.findViewById(R.id.fragment_clock_barcode);
-        barcodeImageView.setImageBitmap(EAN13Utils.drawEan13Code("978730238251"));
+//        barcodeImageView = rootView.findViewById(R.id.fragment_clock_barcode);
+//        barcodeImageView.setImageBitmap(EAN13Utils.drawEan13Code("978730238251"));
     }
 
     @Override

@@ -1,19 +1,13 @@
 package cool.zzy.sems.application.fragment;
 
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
 import cool.zzy.sems.application.R;
 import cool.zzy.sems.application.SemsApplication;
 import cool.zzy.sems.application.activity.LoginActivity;
@@ -31,10 +25,8 @@ import java.util.Objects;
  * @date 2020/9/12 15:58
  * @since 1.0
  */
-public class RegisterFragment extends Fragment implements View.OnClickListener {
+public class RegisterFragment extends BaseFragment {
     private static final String TAG = RegisterFragment.class.getSimpleName();
-
-    private View rootView;
 
     private LinearLayout backLinearLayout;
     private AppCompatEditText emailEditText;
@@ -59,17 +51,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private ProgressDialog progressDialog;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_register, container, false);
-        initViews(rootView);
-        return rootView;
+    protected int getLayout() {
+        return R.layout.fragment_register;
     }
 
-    private void initViews(View rootView) {
+    @Override
+    protected void initViews(View rootView) {
         progressDialog = new ProgressDialog(Objects.requireNonNull(getLoginActivity()), getString(R.string.registering));
         backLinearLayout = rootView.findViewById(R.id.fragment_register_back);
         emailEditText = rootView.findViewById(R.id.fragment_register_email);
@@ -79,13 +67,18 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         registerButton = rootView.findViewById(R.id.fragment_register_button);
         loginTextView = rootView.findViewById(R.id.fragment_register_login);
         clauseCheckBox = rootView.findViewById(R.id.fragment_register_clause);
+    }
+
+
+    @Override
+    protected void initData() {
         backLinearLayout.setOnClickListener(this);
         registerButton.setOnClickListener(this);
         loginTextView.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v) {
+    protected void viewOnClick(View v) {
         LoginActivity loginActivity = getLoginActivity();
         switch (v.getId()) {
             case R.id.fragment_register_back:
