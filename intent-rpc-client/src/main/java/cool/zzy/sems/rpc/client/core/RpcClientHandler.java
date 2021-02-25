@@ -66,6 +66,7 @@ public class RpcClientHandler extends SimpleChannelInboundHandler<RpcResponse> {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         Log.e(TAG, "Client caught exception", cause);
         ctx.close();
+        ConnectionManager.getInstance().clear();
     }
 
     @Override

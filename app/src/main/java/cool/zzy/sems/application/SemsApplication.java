@@ -50,7 +50,7 @@ public class SemsApplication extends Application {
                     if (future.isSuccess()) {
                         initService();
                     } else {
-                        Log.d(TAG, "initRPC: " + future.toString());
+                        Log.d(TAG, "initRPC error: " + future.toString());
                     }
                     isInitRPC = future.isSuccess();
                 });
@@ -94,6 +94,7 @@ public class SemsApplication extends Application {
      * @return 数据
      */
     public <T> T getLocalStorage(String sharedPrefsName, String key, Class<T> tClass) {
+        Log.d(TAG, "get: " + key);
         SharedPreferences sp = this.getSharedPreferences(sharedPrefsName, MODE_PRIVATE);
         if (tClass == Long.class) {
             Object o = sp.getLong(key, -1);
@@ -108,6 +109,7 @@ public class SemsApplication extends Application {
      * @param key key
      */
     public void removeLocalStorage(String sharedPrefsName, String key) {
+        Log.d(TAG, "remove: " + key);
         SharedPreferences sp = this.getSharedPreferences(sharedPrefsName, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
@@ -137,15 +139,19 @@ public class SemsApplication extends Application {
     }
 
     public User getUser() {
-        String data = getLocalStorage(Const.SHARED_PREFS_NAME, Const.SHARED_PREFS_USER, String.class);
-        User localUser = new Gson().fromJson(data, User.class);
-        if (localUser != null) {
-            this.user = localUser;
+        if (user == null) {
+            String data = getLocalStorage(Const.SHARED_PREFS_NAME, Const.SHARED_PREFS_USER, String.class);
+            User localUser = new Gson().fromJson(data, User.class);
+            if (localUser != null) {
+                this.user = localUser;
+            }
+            return localUser;
         }
-        return localUser;
+        return user;
     }
 
     public void removeUser() {
+        user = null;
         removeLocalStorage(Const.SHARED_PREFS_NAME, Const.SHARED_PREFS_USER);
     }
 

@@ -1,21 +1,20 @@
 package cool.zzy.sems.application.activity;
 
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
 import cool.zzy.sems.application.R;
 import cool.zzy.sems.application.fragment.MainFragment;
+import cool.zzy.sems.application.fragment.SettingFragment;
 import cool.zzy.sems.application.util.UserUtils;
 
 import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
-    private MainFragment mainFragment;
+    public MainFragment mainFragment;
+    public SettingFragment settingFragment;
 
-    private BottomBar bottomBar;
+//    private BottomBar bottomBar;
 
     @Override
     protected int getContentView() {
@@ -29,25 +28,27 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        bottomBar = findViewById(R.id.main_bottom_bar);
+//        bottomBar = findViewById(R.id.main_bottom_bar);
     }
 
     @Override
     protected void initData() {
         mainFragment = new MainFragment();
-        bottomBar.setItems(R.xml.bottombar_tabs_user);
-        for (int i = 0; i < bottomBar.getTabCount(); i++) {
-            BottomBarTab tab = bottomBar.getTabAtPosition(i);
-            tab.setGravity(Gravity.CENTER);
-        }
-        bottomBar.setOnTabSelectListener(tabId -> {
-            switch (tabId) {
-                case R.id.tab_clock:
-                    setCurrentFragment(mainFragment);
-                    break;
-                default:
-            }
-        });
+        settingFragment = new SettingFragment();
+        setCurrentFragment(mainFragment);
+//        bottomBar.setItems(R.xml.bottombar_tabs_user);
+//        for (int i = 0; i < bottomBar.getTabCount(); i++) {
+//            BottomBarTab tab = bottomBar.getTabAtPosition(i);
+//            tab.setGravity(Gravity.CENTER);
+//        }
+//        bottomBar.setOnTabSelectListener(tabId -> {
+//            switch (tabId) {
+//                case R.id.tab_clock:
+//                    setCurrentFragment(mainFragment);
+//                    break;
+//                default:
+//            }
+//        });
     }
 
     @Override
@@ -74,6 +75,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public void changeBottomTab(int pos) {
-        bottomBar.selectTabAtPosition(pos, true);
+//        bottomBar.selectTabAtPosition(pos, true);
     }
 }

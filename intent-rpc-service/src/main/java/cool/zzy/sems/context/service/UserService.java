@@ -28,4 +28,12 @@ public interface UserService {
      * @throws Exception 用户注册异常
      */
     User register(User user) throws Exception;
+
+    /**
+     * 更新用户信息
+     *
+     * @param user 用户
+     * @return {@link User}
+     */
+    User updateUser(User user);
 }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:src="@drawable/register_bg"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+        <LinearLayout
+                android:id="@+id/fragment_setting_back"
+                android:layout_centerVertical="true"
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:src="@drawable/return_top"
+                    android:layout_width="12dp"
+                    android:layout_height="22dp"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:text="@string/setting"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/action_bar_size"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_marginTop="100dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="MissingConstraints">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_layout_height"
+                android:gravity="center"
+                android:background="@drawable/input_background"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/input_icon_width"
+                    android:layout_height="@dimen/input_icon_height"
+                    android:src="@drawable/email_icon"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:layout_marginEnd="@dimen/input_icon_margin_right"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_setting_email"
+                    android:ems="15"
+                    android:hint="@string/input_email_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_edit_margin_left"
+                    android:layout_marginEnd="@dimen/input_edit_margin_right"
+                    android:theme="@style/EditTextStyle"
+                    android:inputType="textEmailAddress"
+                    android:enabled="false"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_layout_height"
+                android:gravity="center"
+                android:background="@drawable/input_background"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/input_icon_width"
+                    android:layout_height="@dimen/input_icon_height"
+                    android:src="@drawable/user_icon"
+                    android:layout_marginStart="@dimen/input_icon_margin_left"
+                    android:layout_marginEnd="@dimen/input_icon_margin_right"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_setting_username"
+                    android:ems="15"
+                    android:hint="@string/input_user_name_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/input_edit_margin_left"
+                    android:layout_marginEnd="@dimen/input_edit_margin_right"
+                    android:theme="@style/EditTextStyle"
+                    android:inputType="text"
+                    android:textCursorDrawable="@drawable/edit_cursor_color"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_setting_save"
+                android:layout_width="281dp"
+                android:layout_height="45dp"
+                android:layout_margin="16dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:background="@drawable/button_login"
+                android:text="@string/save_setting"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_setting_logout"
+                android:layout_width="281dp"
+                android:layout_height="45dp"
+                android:layout_margin="16dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:background="@drawable/button_login"
+                android:text="@string/login_out"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

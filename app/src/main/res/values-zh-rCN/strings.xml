@@ -66,4 +66,6 @@
     <string name="my_express">我的快递</string>
     <string name="setting">设置</string>
     <string name="input_express_number_hint">输入或扫一扫快递单号</string>
+    <string name="save_setting">保存修改</string>
+    <string name="modify_user_fail">更新用户时出现错误</string>
 </resources>

@@ -1,10 +1,13 @@
 package cool.zzy.sems.application.fragment;
 
+import android.app.Activity;
 import android.view.View;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import cool.zzy.sems.application.R;
+import cool.zzy.sems.application.activity.MainActivity;
 import cool.zzy.sems.application.util.UserUtils;
 
 /**
@@ -16,7 +19,7 @@ public class MainFragment extends BaseFragment {
     private AppCompatTextView nicknameTextView;
     private AppCompatEditText inputEditText;
     private AppCompatImageView scanTextView;
-    private AppCompatTextView settingTextView;
+    private AppCompatButton settingButton;
 
     @Override
     protected int getLayout() {
@@ -28,7 +31,7 @@ public class MainFragment extends BaseFragment {
         nicknameTextView = rootView.findViewById(R.id.fragment_main_username);
         inputEditText = rootView.findViewById(R.id.fragment_main_input);
         scanTextView = rootView.findViewById(R.id.fragment_main_scan);
-        settingTextView = rootView.findViewById(R.id.fragment_main_setting);
+        settingButton = rootView.findViewById(R.id.fragment_main_setting);
     }
 
     @Override
@@ -39,16 +42,21 @@ public class MainFragment extends BaseFragment {
             UserUtils.staticLogin(getActivity());
         }
         scanTextView.setOnClickListener(this);
-        settingTextView.setOnClickListener(this);
+        settingButton.setOnClickListener(this);
     }
 
     @Override
     protected void viewOnClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_main_setting:
-                UserUtils.logout(getActivity());
+                getMainActivity(getActivity())
+                        .setCurrentFragment(getMainActivity(getActivity()).settingFragment);
                 break;
             default:
         }
+    }
+
+    private MainActivity getMainActivity(Activity a) {
+        return (MainActivity) a;
     }
 }

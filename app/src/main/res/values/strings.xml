@@ -65,4 +65,6 @@
     <string name="my_express">My express</string>
     <string name="setting">Setting</string>
     <string name="input_express_number_hint">Enter or scan the tracking number.</string>
+    <string name="save_setting">Modify setting</string>
+    <string name="modify_user_fail">An error occurred while updating the user.</string>
 </resources>
