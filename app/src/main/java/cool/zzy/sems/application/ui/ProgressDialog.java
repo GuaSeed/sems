@@ -25,6 +25,10 @@ public class ProgressDialog extends Dialog {
         setCanceledOnTouchOutside(false);
     }
 
+    public void setTitle(String title) {
+        initData(title);
+    }
+
     private void initData(String title) {
         titleTextView.setText(title);
     }

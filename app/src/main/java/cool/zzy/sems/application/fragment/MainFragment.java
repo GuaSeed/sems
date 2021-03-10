@@ -1,13 +1,11 @@
 package cool.zzy.sems.application.fragment;
 
-import android.app.Activity;
 import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import cool.zzy.sems.application.R;
-import cool.zzy.sems.application.activity.MainActivity;
 import cool.zzy.sems.application.util.UserUtils;
 
 /**
@@ -18,7 +16,7 @@ import cool.zzy.sems.application.util.UserUtils;
 public class MainFragment extends BaseFragment {
     private AppCompatTextView nicknameTextView;
     private AppCompatEditText inputEditText;
-    private AppCompatImageView scanTextView;
+    private AppCompatImageView scanImageView;
     private AppCompatButton settingButton;
 
     @Override
@@ -30,7 +28,7 @@ public class MainFragment extends BaseFragment {
     protected void initViews(View rootView) {
         nicknameTextView = rootView.findViewById(R.id.fragment_main_username);
         inputEditText = rootView.findViewById(R.id.fragment_main_input);
-        scanTextView = rootView.findViewById(R.id.fragment_main_scan);
+        scanImageView = rootView.findViewById(R.id.fragment_main_scan);
         settingButton = rootView.findViewById(R.id.fragment_main_setting);
     }
 
@@ -41,7 +39,7 @@ public class MainFragment extends BaseFragment {
         } else {
             UserUtils.staticLogin(getActivity());
         }
-        scanTextView.setOnClickListener(this);
+        scanImageView.setOnClickListener(this);
         settingButton.setOnClickListener(this);
     }
 
@@ -49,14 +47,12 @@ public class MainFragment extends BaseFragment {
     protected void viewOnClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_main_setting:
-                getMainActivity(getActivity())
-                        .setCurrentFragment(getMainActivity(getActivity()).settingFragment);
+                enterSettingFragment();
+                break;
+            case R.id.fragment_main_scan:
+                enterBarcodeFragment();
                 break;
             default:
         }
-    }
-
-    private MainActivity getMainActivity(Activity a) {
-        return (MainActivity) a;
     }
 }

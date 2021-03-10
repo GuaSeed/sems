@@ -14,7 +14,7 @@ using namespace std;
 
 extern "C"
 JNIEXPORT jobject JNICALL
-Java_xyz_zzyitj_iface_OpencvJni_haveBarcode(JNIEnv *env, jobject instance,jbyteArray data_, jint imgwidth, jint imgheight) {
+Java_cool_zzy_sems_application_OpencvJni_haveBarcode(JNIEnv *env, jobject instance,jbyteArray data_, jint imgwidth, jint imgheight) {
     jbyte *data = env->GetByteArrayElements(data_, NULL);
     Mat src(imgheight*3/2, imgwidth, CV_8UC1, data);
     cvtColor(src, src, COLOR_YUV2RGBA_NV21);
@@ -52,7 +52,7 @@ Java_xyz_zzyitj_iface_OpencvJni_haveBarcode(JNIEnv *env, jobject instance,jbyteA
                 ANativeWindow_unlockAndPost(window);
             } while (0);
         }
-    jclass rect_class = env->FindClass("xyz/zzyitj/iface/model/Rect");
+    jclass rect_class = env->FindClass("cool/zzy/sems/application/model/Rect");
     jmethodID rect_mid   = env->GetMethodID(rect_class,"<init>","()V");
     jfieldID  rect_fid_x = env->GetFieldID(rect_class,"x","I");
     jfieldID  rect_fid_y = env->GetFieldID(rect_class,"y","I");
@@ -70,7 +70,7 @@ Java_xyz_zzyitj_iface_OpencvJni_haveBarcode(JNIEnv *env, jobject instance,jbyteA
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_xyz_zzyitj_iface_OpencvJni_recognitionBarcode(JNIEnv *env, jobject instance, jobject bmp,
+Java_cool_zzy_sems_application_OpencvJni_recognitionBarcode(JNIEnv *env, jobject instance, jobject bmp,
                                                    jint rect_x,jint rect_y,jint rect_width,jint rect_height) {
     AndroidBitmapInfo bitmapInfo;
     void *pixelscolor;
@@ -104,7 +104,7 @@ Java_xyz_zzyitj_iface_OpencvJni_recognitionBarcode(JNIEnv *env, jobject instance
 }
 extern "C"
 JNIEXPORT void JNICALL
-Java_xyz_zzyitj_iface_OpencvJni_setSurface(JNIEnv *env, jobject instance, jobject surface) {
+Java_cool_zzy_sems_application_OpencvJni_setSurface(JNIEnv *env, jobject instance, jobject surface) {
     if (window) {
         ANativeWindow_release(window);
         window = 0;

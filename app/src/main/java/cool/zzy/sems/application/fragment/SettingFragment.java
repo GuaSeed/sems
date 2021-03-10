@@ -1,6 +1,5 @@
 package cool.zzy.sems.application.fragment;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -8,7 +7,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import cool.zzy.sems.application.R;
 import cool.zzy.sems.application.SemsApplication;
-import cool.zzy.sems.application.activity.MainActivity;
 import cool.zzy.sems.application.util.DialogUtils;
 import cool.zzy.sems.application.util.UserUtils;
 import cool.zzy.sems.context.model.User;
@@ -53,7 +51,7 @@ public class SettingFragment extends BaseFragment {
     protected void viewOnClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_setting_back:
-                backMainFragment();
+                enterMainFragment();
                 break;
             case R.id.fragment_setting_logout:
                 UserUtils.logout(getActivity());
@@ -76,19 +74,10 @@ public class SettingFragment extends BaseFragment {
             } else {
                 Toast.makeText(getActivity(), R.string.success, Toast.LENGTH_LONG).show();
                 SemsApplication.instance.putUser(newUser);
-                backMainFragment();
+                enterMainFragment();
             }
         } else {
             DialogUtils.showConnectErrorDialog(getActivity());
         }
-    }
-
-    private void backMainFragment() {
-        getMainActivity(getActivity())
-                .setCurrentFragment(getMainActivity(getActivity()).mainFragment);
-    }
-
-    private MainActivity getMainActivity(Activity a) {
-        return (MainActivity) a;
     }
 }

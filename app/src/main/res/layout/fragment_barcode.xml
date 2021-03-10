@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:src="@drawable/register_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+            <LinearLayout
+                    android:id="@+id/fragment_barcode_back"
+                    android:layout_centerVertical="true"
+                    android:layout_width="48dp"
+                    android:layout_height="50dp"
+                    android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:src="@drawable/return_top"
+                        android:layout_width="12dp"
+                        android:layout_height="22dp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <SurfaceView
+                    android:id="@+id/fragment_barcode_surface_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    tools:text="@string/input_user_name_hint"
+                    android:id="@+id/fragment_barcode_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
